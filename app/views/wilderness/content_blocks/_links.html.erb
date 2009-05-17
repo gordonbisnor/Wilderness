@@ -1,0 +1,8 @@
+<% unless @links.blank? %>
+<h3>Links</h3>
+<ul>
+	<% @links.each do |link| %> 
+		<li><%= link_to link.title, link.url %></li>
+		<% end unless @links.blank? %>
+</ul>                   
+<% end %>

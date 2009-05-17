@@ -1,0 +1,14 @@
+<% if items.first.responds_to?('title') -%>
+
+	<%= collection_select('menu_item', 'menu_itemable_id', items, :id, :title, {:prompt => true}, {:onchange => "update_item_list(this.value)"} ) %>      
+
+<% elsif items.first.responds_to?('name') -%>
+
+	<%= collection_select('menu_item', 'menu_itemable_id', items, :id, :name, {:prompt => true}, {:onchange => "update_item_list(this.value)"} ) %>      
+
+<% else -%>
+
+	<%= collection_select('menu_item', 'menu_itemable_id', items, :id, :id, {:prompt => true}, {:onchange => "update_item_list(this.value)"} ) %>      
+
+<% end -%>
+	

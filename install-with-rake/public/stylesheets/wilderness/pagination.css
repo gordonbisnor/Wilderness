@@ -1,0 +1,27 @@
+.pagination, .paginate-info { 
+	font-size: 12px;
+	text-align: left;
+}
+.pagination {
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+.paginate-info {
+	padding-bottom: 20px;
+	margin-bottom: 0;
+}
+.pagination a, .pagination span {
+	padding: 8px;
+	border: 1px solid #CCC;	
+	margin-left: 4px;
+	margin-right: 4px;
+}
+.pagination span {
+	border-color: #DDD;
+}
+.pagination a:hover {
+	border-color: #494949;
+	background-color: #84bb3d!important;
+	color: white!important;
+	text-decoration: none;
+}

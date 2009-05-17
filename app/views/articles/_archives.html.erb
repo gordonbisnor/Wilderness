@@ -1,0 +1,8 @@
+<ul class='archives'>                                          
+	<% @archives.each do |archive| %>
+		<%= render :partial =>'articles/archive', :locals => { :archive => archive } %>
+	<% end %>
+	<% if @archives.length > 12 %>
+		<li class='archive'><%= link_to 'more', archives_articles_path %><li>
+	<% end %>
+</ul>

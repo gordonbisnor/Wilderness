@@ -1,0 +1,6 @@
+<% unless item.disabled_for_comments? %>
+	<div id='comments'>
+		<%= render :partial => 'comments/form', :locals => { :commentable_type => klass, :commentable_id => item.id } %>
+		<%= render item.comments.ham %>
+	</div> 
+<% end %>

@@ -1,0 +1,7 @@
+<h3>Pages</h3>
+<ul>     
+	<li><%= link_to 'Home', root_path %></li>
+	<% @pages.each do |page| %>
+		<li><%= link_to page.title, page %></li>
+	<% end %>
+</ul>

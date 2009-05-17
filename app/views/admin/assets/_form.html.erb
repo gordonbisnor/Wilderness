@@ -1,0 +1,34 @@
+<% form_for([:admin,@item], :html => {:multipart => true} ) do |f| %>
+  
+	<%= f.label :file %>
+	<%= f.file_field :uploaded_data %>
+	
+	<%= f.label :title %>
+	<%= f.text_field :title %>
+
+	<%= f.label :category %>
+	<%= collection_select(:asset, :category_id, Category.all, :id, :title) %>
+	          
+	<%= wilderness_submit %>
+	
+<% end %>
+
+	<table style='padding:10px;margin-top:0'>
+		<tr>
+			<thead>
+				<th colspan='4'>File Formats Guidelines</th>
+			</thead>
+		</tr>
+		<tr>
+			<th>Audio</th>
+			<th>Video</th>
+			<th>Images</th>
+			<th>Other</th>    
+		</tr>
+		<tr>
+	 		<td>Mp3</td>
+			<td>FLV, H.264 or MP4</td>
+			<td>GIF, PNG or JPEG</td>
+			<td>Other file formats are downloads.</td>      
+		</tr>
+	</table>

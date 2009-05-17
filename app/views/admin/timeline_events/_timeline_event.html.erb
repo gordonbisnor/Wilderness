@@ -1,0 +1,32 @@
+<li>
+	<% if timeline_event.actor %>
+  	<%= gravatar_for timeline_event.actor.email %>
+	<% elsif timeline_event.subject %>
+		<%= gravatar_for timeline_event.subject.author_email %>
+	<% end %>                                   
+	
+	<% if timeline_event.actor %>
+		<%= link_to timeline_event.actor.login, timeline_event.actor %> 
+	<% elsif timeline_event.subject.author %>
+		<%= link_to timeline_event.subject.author %>
+	<% end %>
+	
+	<% if timeline_event.event_type == 'create' -%>
+		created a <%= timeline_event.subject_type.to_s.humanize.downcase %>
+	<% elsif timeline_event.event_type == 'update' %>
+		edited an <%= timeline_event.subject_type.to_s.humanize.downcase %>
+	<% elsif timeline_event.event_type == 'destroy' %>
+		destroyed an <%= timeline_event.subject_type.to_s.humanize.downcase %>
+	<% else %>
+	ERROR
+	<% end -%>
+	<br />                                                                      
+	<% if timeline_event.subject %>
+		<%= link_to timeline_event.subject.title, polymorphic_path([:admin,timeline_event.subject]) %> 
+		<% if current_user.has_permission?('edit') %>
+			<%= link_to 'Edit', edit_polymorphic_path([:admin,timeline_event.subject])  %>
+		<% end %>
+	<br />                                                           
+	<% end %>
+	<%= timeline_event.created_at.to_s(:long) %><br />
+</li>

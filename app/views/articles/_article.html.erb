@@ -1,0 +1,19 @@
+<li class='article'>
+	<h2><%= link_to article.title, article %></h2> 
+
+	<%= article.created_at.to_s(:long) %><br />
+
+	Posted in <%= link_to article.category.title, article.category if article.category %><br />
+
+	<% unless article.tag_list.blank? %> Tags: <%= article.tags.map { |tag| link_to(tag.name,tag) }.join(', ') %><br />
+	<% end %>
+
+	<%= link_to "Comments (#{article.comments.ham.length})", "#{article_path(article)}#comments" unless article.comments.blank? %><br />		  
+
+	<%= simple_format(truncate(strip_tags(article.content), :length => @preferences[:excerpt_length].to_i)) %> 
+
+	<p class='read-more'>
+		<%= link_to '...read more', article if article.content and article.content.length > @preferences[:excerpt_length].to_i %>
+	</p>
+
+</li>

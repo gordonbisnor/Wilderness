@@ -1,0 +1,114 @@
+Wilderness
+==========
+I GUESS ANOTHER OPTION IS JUST LEAVE THE SHIT IN WILDERNESS. AND ONLY IF YOU NEED TO 
+CUSTOMIZE SOMETHING IN A CONTROLLER OR MODEL __ THEN YOU MOVE IT UP. IN THIS WAY YOU KNOW THAT ONLY THOSE THINGS THAT HAVE BEEN MOVED HAVE BEEN CHANGED?
+
+ABOUT
+A DEPLORABLE CRAZY CROSS BETWEEN STARTER SITE AND RAILS ENGINE PLUGIN
+YOU INSTALL THE PLUGIN, WHICH DOES HAVE SOME UPDATEABLE INDEPENDENT CORE FILES
+BUT THEN YOU ALSO RAKE INSTALL A SHITLOAD OF STUFF INTO YOUR MAIN APP ROOT WHICH I THINK IS REALLY A NIGHTMARE, BUT HAVE NOT FIGURED OUT A WORKAROUND. SO YOU START WITH THAT BASE, AND THEN START CUSTOMIZING THE INSTALLED MODELS AND CONTROLLERS IF YOU NEED TO AND YOU CAN JUST OVERWRITE ANY INDIVIDUAL VIEW FILES -- THAT’S NO BIG DEAL.... BUT THEN IF I DO DECIDE TO DO AN UPGRADE, AND START DICKING AROUND WITH THE APP CONTROLLER STUFF - ANYTHING THAT HAS BEEN RAKED INTO PLACE, IT BECOMES AN ISSUE BECAUSE THERE THE FILES HAVE DIVERGED, AND FOR THOSE FILES THEY WILL EITHER NEED TO BE COPIED AND PASTED/GIT MERGED SOMEHOW INTO SYNC, OR IN SOME CASES I GUESS THE FILES COULD BE OVERWRITTEN WITH RSYNC MAYBE THERE COULD BE AN OPTION OF UPGRADE TYPES: DESTRUCTIVE OR NON-DESTRUCTIVE?
+so maybe 
+wilderness:install (ONE POINT OH)
+wilderness-two-soft (TWO WITHOUT OVERWRITING)
+wilderness:two-hard (TWO WITH OVERWRITING) THIS WAY, NONE OF THE VIEWS ARE GONNA GET KILLED THE MODELS WILL, THE CONTROLLERS WILL, THEY SHOULD JUST BE USING THEIR OWN STYLESHEETS AND IMAGES? 
+I DON'T KNOW, THIS IS STARTING TO SEEM LIKE A ANOTHER ONE OF MY GRANDLY FUCKED UP IDEAS.
+EXCEPT IT DOES WORK BRILLIANTLY IF IT IS NOT MODIFIED AND YOU JUST DO THE HARD UPGRADE.... YOUR FRONT END VIEWS ARE NOT GOING TO GET TOUCHED, SO THAT MIGHT BE WHERE THE BULK OF THE MODS COME INTO PLAY? UNLESS I STAYED THE ORIGINAL COURSE, AND JUST FIGURED OUT A WAY FOR PEOPLE TO HOOK INTO THE API AND MODIFY MODELS AND CONTROLLERS LIKE DRUPAL TO CREATE A SORT OF API.... 
+
+#################################################
+CONTENT BLOCKS, CONTENT AREAS
+#################################################
+The default front end layout is created dynamically as a product of nested content areas and content block endpoints. If you wish to use this, you can create an “area” such as “container”, then a “header” container that is a child of container, in the “header” you can drop a content block endpoint like a logo. A content block expects a partial in views/wilderness/content_blocks, and the name is expected to be a downcased, underscored copy of the name you use in the content blocks. You can assign a class to a content area, and the id will be the same as the name but downcased and dasherized so an area called “Our Corporate Logo” becomes “<div id='our-corporate-logo'></div>”. 
+
+#################################################
+AUTOMATIC ADMIN SECTION OPTIONS
+#################################################
+
+Blank controllers/models/routes can be dropped into place and take advantage of the inherited wilderness controller methods and views (eg for a default admin section if if suits your needs). 
+
+If a custom action is required, drop it into that controller (and either write a completely custom method or just add your custom code then “super” up to the inherited method to finish the job). 
+
+If you need just a custom view, you can specify that in the model:
+
+def self.custom_views
+	['new','show','index']
+end
+
+Trying to apply the “convention over configuration” wisdom wherever I can to make this thing run smoothly.
+
+-- Assumes every model has a title attribute, or if not title, then name. If neither of those are available will use some sort of default eg ID. Maybe there should be a way of specifying an “label” field?
+
+-- For a polymorphic relationship the poly fields should be the name of the model suffixed with “able” so commentable_id, commentable_type.
+
+#################################################
+SORTABLE MODELS
+#################################################
+As long as your model contains a position column, you can add it to the
+list of sortable sections in preferences (use the human name eg Menu Items instead of MenuItem). When you do this you’ll now have a link to a drag and drop sort view from the admin index for that section. This sorted order will now apply a default scope with a before_filter class_eval to always sort by position asc for that model.
+
+#################################################
+# PER MODEL OPTIONS 
+#################################################
+
+class MyModel < ActiveRecord::Base
+
+	# CUSTOM VIEW ONLY
+	def self.custom_views
+	['new','edit','whatever']
+	end
+
+	# OMIT FIELD FROM INDEX/SHOW VIEW
+	def self.omit_fields
+		['created_at','updated_at','whatever]
+	end
+	
+	# ADD A JUMP MENU FILTER
+	def self.filter_options
+	{ :field => 'publish', :values => 'Yes','No' }
+	end
+                                              
+	# ADD A SEARCH BOX
+	def self.search_fields
+		['title','whatever']
+	end
+	
+	# ADD IN ANY CUSTOM MODEL METHODS YOU WANT DISPLAYED
+	def self.custom_methods
+		{'title'=>'method'}
+	end
+	
+	# PRINT A COUNT OF “HAS MANY” RECORDS WITH A LINK TO THE NESTED RESOURCE
+	eg links '3 Tags' to articles/3/tags
+	def self.links_to_has_many_records
+    ['Tags']
+  end
+	
+#################################################
+# GENERAL APP CONFIGURATION OPTIONS
+#################################################
+
+class Wilderness
+
+	# ADD A SECTION TO THE DASHBOARD
+	DASHBOARD_SECTIONS = ['Articles','Pages','Whatever']
+
+end
+
+#################################################
+Things to note:
+#################################################
+
+Public: 
+
+- TinyMCE has a custom plugin with image uploads and a paginated ajax image gallery
+
+Vendor/Plugins: 
+
+- acts_as_comment_state_machine adds some states and the has many comments association, pluginize to avoid duplication in models, maybe the comment class should be moved into the plugin too?
+ 
+gravatar hacks -- i was not crazy about the way this was implemented....
+# NOTE -- IT CURRENTLY IS HARD CODED TO USE THE ISNOR CREATIVE GRAVATAR....
+
+# WAS THINKING ABOUT TRYING TO MOVE ALL VIEWS INTO THE THEME FOLDER
+AND CONSOLIDATING THE FRONT END VIEWS so page and article eg would be one view... no reason why tey shouldn't be. in fact i don't really know why that isn't STI for that matter.
+
+Copyright (c) 2009 [Gordon B. Isnor], released under the MIT license

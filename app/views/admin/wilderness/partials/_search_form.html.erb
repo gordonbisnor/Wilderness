@@ -1,0 +1,9 @@
+<% form_tag("#{path}", :method => :post) do %>
+<strong>Search:</strong>
+<%= text_field_tag :value, params[:value] %>
+	Field: 
+	<select name='field'>
+		<%= options_for_select options, params[:field] %>
+	</select>
+	<%= submit_tag 'Search' %>
+<% end %>

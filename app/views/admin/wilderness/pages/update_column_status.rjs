@@ -1,0 +1,8 @@
+ids = @ids.split(',')
+
+ids.each do |id|
+  box = "#{@item_type}_#{@column}_#{id}"
+  page.visual_effect :highlight, box
+  page.replace_html box, @status
+end
+       

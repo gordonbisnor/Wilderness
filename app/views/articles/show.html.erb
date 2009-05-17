@@ -1,0 +1,13 @@
+<%= title(@article.title,:h1) %>
+
+<% unless @article.disabled_for_comments? %>
+	(<%= link_to_function pluralize(@article.comments.ham.length,'comment'), 'new Effect.ScrollTo("comments")' %>)<br />
+<% end %>
+
+<%= @article.content %>
+
+<p><%= "Tags: #{@article.tag_list}" if @article.tags.length > 0 %></p>
+
+<p>Published: <%= @article.created_at.to_s(:long) %></p>
+
+<%= comments_for @article %>

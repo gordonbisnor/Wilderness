@@ -1,0 +1,9 @@
+<div id='header'>
+
+<%= new_item_link(@klass) %>
+
+<h1>
+	<%= link_to "#{@klass.to_s.titleize.pluralize}", "/admin/#{@klass.to_s.underscore.downcase.pluralize}" %>
+	<%= " - #{@user.name}" if @user %>
+</h1>
+</div>

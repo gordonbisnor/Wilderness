@@ -1,0 +1,16 @@
+ids = @ids.split(',')
+
+ids.each do |id|
+  page.visual_effect :highlight, "#{@item_type}_#{id}"
+  page.delay(0.125) do
+    page << "$('#{@item_type}_#{id}').shrink({duration: 0.125})"
+  end
+  page.delay(0.25) do
+    page.remove "#{@item_type}_#{id}"
+  end
+end
+       
+page.delay(0.30) do
+ page <<   "jQuery('tr.#{@item_type}s').removeClass('even').removeClass('odd')"
+ page << "jQuery('table.#{@item_type}s tr:even').addClass('even');jQuery('table.#{@item_type}s tr:odd').addClass('odd')"
+end       

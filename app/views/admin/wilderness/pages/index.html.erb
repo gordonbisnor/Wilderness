@@ -1,0 +1,28 @@
+<%= header(@klass) %>
+
+<% if @sortable_sections.include?(@klass) %>
+	<%= link_to 'Go To Sortable View  »', '?view=list' %>
+<% end %>
+
+<table id='filters'>
+	<tr>
+		<% if @klass.respond_to?("filter_options") && !@klass.filter_options.blank? %>
+		<td>
+			<%= filter_by(:options => @klass.filter_options[:values], :model =>controller_name, :field => @klass.filter_options[:field]) %>
+		</td>                                  
+		<% end %>                                
+		<% if @klass.respond_to?("search_fields") && !@klass.search_fields.blank? %>
+		<td style='vertical-align:bottom!important'>
+			<%= search_form(:path => "/admin/#{controller_name}/search/",  :options => @klass.search_fields) %>
+		</td>                                     
+		<% end %>
+	</tr>    
+</table>
+
+<% unless @items.blank? %>
+	<%= render :partial => 'admin/wilderness/partials/table', :locals => { :items => @items } %>
+<% else %>
+	<div id='nothing-found'>No Items Found</div>
+<% end %>
+
+<%= will_paginate @items %>

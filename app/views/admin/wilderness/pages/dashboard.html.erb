@@ -1,0 +1,21 @@
+<h1>Dashboard</h1>
+
+<div id='recent-activity'>
+	<h2>Recent Activity</h2>
+	<ul id='timeline'>
+	<%= render :partial => @timeline_events %>
+	</ul>
+	<% if @timeline_events.next_page %>
+		<%= link_to 'Older', "?page=#{@timeline_events.next_page}" %>
+	<% end %>
+	<% if @timeline_events.previous_page %>
+		<%= link_to 'More Recent', "?page=#{@timeline_events.previous_page}" %>
+	<% end %>	
+</div>
+
+<div id='dashboard'>
+	<% @dashboard_sections.each do |section| %>  
+		<%= render :partial => 'admin/wilderness/partials/dashboard_section', :locals => {:section=>section} %>
+	<% end %>
+</div>
+

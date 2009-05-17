@@ -1,0 +1,25 @@
+<tr id='<%= @klass.to_s.downcase.singularize %>_<%= comment.id %>' class='<%= zebra %>'>
+	<td>
+		<strong><%= comment.author %></strong><br />
+		<%= comment.author_email %><br />
+		<%= comment.user_ip %>
+	</td>
+	<td style='min-width:250px'> 
+		Submitted <%= comment.created_at.to_formatted_s(:long) %><br />
+		<%= comment.title %><br />
+		<%= comment.content %><br />
+		<div class='actions' style='display:none;float:left'>
+			Actions: 
+			<% form_for([:admin,comment]) do |f| %>
+				<% link_to_function 'Unapprove', "set hidden fields as unapproved, then submit form via remote" %> | <%= link_to_function 'Spam', "set hidden field as spam, then submit form via remote" %> | 
+			<% end %>
+			<%= link_to_remote 'Delete', :url => [:admin,comment], :method => :delete, :confirm => 'Are you sure?'  %> | <%= link_to 'Edit', edit_admin_comment_path(comment) %>
+		</div>
+		&nbsp;
+	</td>
+	<td>
+		<%= link_to comment.commentable.title, [:admin,comment.commentable] %>
+	<td>
+		<%= comment.is_spam? ? 'Spam' : 'Ham' %>
+	</td>
+</tr>

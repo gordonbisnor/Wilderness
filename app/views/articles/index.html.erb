@@ -1,0 +1,9 @@
+<% unless @articles.blank? %>
+<ul class='articles'>
+	<%= render @articles %>
+</ul>
+<% else %>
+<p>No items found.</p>
+<% end %>
+
+<%= will_paginate @articles %>

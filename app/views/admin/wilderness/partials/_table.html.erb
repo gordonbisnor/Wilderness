@@ -1,0 +1,77 @@
+<table id='<%= @wilderness.controller_name %>' class='<%= @wilderness.controller_name %> index'>
+
+<!-- SECTION NAME --> 
+ <thead>
+		<tr>
+			<th colspan='<%= colspan %>'>
+				<%= @wilderness.title %>
+				</th>
+		 </tr>
+	</thead>
+
+<!-- COLUMN HEADERS -->
+	<tr>     
+		<% @wilderness.field_names.each do |header| -%>
+			<% if header[:sort] -%>
+				<th><%= sort(header[:name]) %></th>
+			<% else %>
+				<th><%= header[:name] %></th>
+			<% end %>
+		<% end if @wilderness %>  
+
+		<% if current_user.has_permission?('show') %>            
+			<th>Show</th>
+		<% end %>
+		<% if current_user.has_permission?('edit') %>            
+			<th>Edit</th>
+		<% end %>
+		<% if current_user.has_permission?('delete') %>            
+			<th>Remove</th>
+		<% end %>
+		
+		<th><%= toggle_check_boxes(@wilderness.title) %></th>
+	</tr>     
+	            
+	<% @wilderness.records.each do |row| %>
+		<%= render :partial =>'admin/wilderness/partials/row', :locals => { :row => row } %>
+	<% end if @wilderness %>     
+	
+	<!-- ACT ON CHECKED -->
+	<tfoot>
+		<tr>
+			<th colspan='<%= colspan %>' class='checked-actions'>&nbsp;
+				
+				With Checked: 
+				<select id='act-on-checked'>   
+					<option value=''>Please select...</option> 
+					<% if current_user.has_permission?('delete') %>
+						<option value='delete_checked'>Delete</option> 
+					<% end %>
+					<% if @klass.column_names.include?('publish') %>
+						<% if current_user.has_permission?('publish') %>
+						<option value='publish'>Publish</option>
+						<% end %>
+				    <% if current_user.has_permission?('publish') %>
+							<option value='unpublish'>Unpublish</option>  
+						<% end %>
+					<% end %>
+					<% if controller_name == 'comments' %>
+						<% if current_user.has_permission?('mark_as_spam') %>
+						<option value='mark_as_spam'>Mark As Spam</option> 
+						<% end %>
+						<% if current_user.has_permission?('mark_as_ham') %>
+						<option value='mark_as_ham'>Mark As Ham</option>
+						<% end %>
+					<% end %>                             
+					<% if @klass.column_names.include?('comment_state') %>
+						<option value='open_for_comments'>Open For Comments</option>
+						<option value='close_for_comments'>Close For Comments</option>					
+						<option value='disable_comments'>Disable Comments</option>
+					<% end %>
+				</select>
+			
+				<%= act_on_checked(:class => @wilderness.controller_name.singularize, :path => "/admin/#{@wilderness.controller_name}/") %>
+			</th>
+		</tr>
+	</tfoot>
+</table>

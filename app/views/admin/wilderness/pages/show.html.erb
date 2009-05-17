@@ -1,0 +1,44 @@
+<%= header(@klass) %>
+
+<table id='page_<%= @item.id %>' class='show'>
+	
+	<% @wilderness.records[:fields].each do |field| %>
+	<tr class='<%= zebra %>'>
+			<th><%= field[:name] %></th>
+			<% if field[:type] == :image %>
+				<td><%= image_tag(field[:value],:class=>'image') %></td>
+			<% elsif field[:type] == :has_many_link %>	
+				<td>
+					<%= link_to "#{pluralize @item.send(field[:name].downcase.gsub(' ','_')).length, field[:name]}" , "#{@item.id}/#{field[:name].downcase.gsub(' ','_')}" %>
+				</td>
+			<% else %>
+				<td><%= field[:value] %></td>
+			<% end %>                  
+	<% end unless @wilderness.records.nil? %>
+
+	<% if current_user.has_permission?('edit') %> 
+		<tr>	        
+			<th>Edit</th>
+			<td>
+			  <%= link_to image_tag('wilderness/icons/pencil.png'), edit_polymorphic_path([:admin,@item]) %>
+			</td>
+    </tr>
+	<% end %>
+	<% if current_user.has_permission?('delete') %>
+		<tr>
+			<th>Delete</th>
+			<td><%= link_to image_tag('wilderness/icons/delete.png'), [:admin,@item], :method => :delete, :confirm => 'Are you sure' %></td>                              
+	    </tr>  
+  <% end %>
+		<% if current_user.has_permission?('publish') && @klass.columns.map(&:name).include?('publish') %>
+<tr>
+			<th>Publish</th>
+		<td>
+			<% form_for([:admin,@item]) do |f| %>
+				<%= f.check_box :publish, :style => 'float: left; margin:0; margin-right: 10px;' %>
+				<%= f.submit 'Go', :style=>'margin:0;' %>
+			<% end %>
+		</td>
+  </tr>
+		<% end %>
+	</table>

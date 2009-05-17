@@ -1,0 +1,35 @@
+<% form_for([:admin,@item]) do |f| %>
+
+	<label>Role<br />
+	<% Role.all.each do |role| %>              
+		<% if @item.role == role  %>
+	 		<%= f.radio_button :role_id, role.id, :checked => 'checked' %> <%= role.name %>
+		<% else %>
+			<%= f.radio_button :role_id, role.id %> <%= role.name %>
+		<% end %>
+	<% end %>
+	</label>
+
+	<label> Permission<br />
+	<% Permission.all(:order => 'title ASC').each do |permission| %>
+		<% if @item.permission == permission %>
+			<%= f.radio_button :permission_id, permission.id, :checked => 'checked' %> <span class='radio-label'><%= permission.title %></span>
+		<% else %>
+			<%= f.radio_button :permission_id, permission.id %> <%= permission.title %>
+		<% end %>
+	<% end %>
+	</label>
+	
+	<%= f.label :allow? %>
+	<%= f.check_box :active %>
+
+	<%= f.label :section %>                                        
+	<% if @item.new_record? %>
+		<%= f.select :section,  Wilderness::SECTIONS.collect { |s| [s, s.singularize.gsub(' ','')] } << ['All','All']  %>
+	<% else %>
+		<%= f.select :section, Wilderness::SECTIONS.collect { |s| [s, s.singularize.gsub(' ','')] } << ['All','All'] %>
+	<% end %>
+	
+	<%= wilderness_submit %>
+	
+<% end %>

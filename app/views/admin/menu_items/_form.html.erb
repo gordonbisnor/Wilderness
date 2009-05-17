@@ -1,0 +1,24 @@
+<%= error_messages_for @klass.to_s.downcase.to_sym %>
+
+<% form_for([:admin,@item]) do |f| -%>
+
+	<%= label_tag 'menu_id' %>
+	<%= collection_select(@item.class.to_s.underscore.downcase.to_sym, 'menu_id', Menu.all, :id, :title ) %>
+
+ <%= label_tag 'item_type' %>
+	<%= collection_select(@item.class.to_s.underscore.downcase.to_sym, 'menu_itemable_type', Wilderness::CAN_BE_ADDED_TO_MENUS, :titlecase, :titlecase, {:prompt=>true}, {:onchange => "update_item_list(this.value)"} ) %>
+
+<div id='items'>
+ <%= label_tag 'item_id' %>
+  <div id='item_list'></div>
+</div>
+	<%= wilderness_submit %>
+   
+<% end -%>
+
+
+<script type='text/javascript'>
+function update_item_list(model) {
+	new Ajax.Request('update_item_list?model='+model);
+}
+</script>

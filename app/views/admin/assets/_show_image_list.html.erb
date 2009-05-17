@@ -1,0 +1,32 @@
+<% if images.size > 0 %>
+<ul>
+  <% images.each do |image| %>
+		<% if image.parent_id.blank? %>
+    	<li>
+      	<a href="javascript:void(0)" onclick="<%= "ImageDialog.showWildernessPreview('#{image.public_filename}');ImageDialog.wildernessInsertImage('#{image.public_filename}','#{image.title || " "}');" %>">
+      <%= image_tag(image.public_filename(:thumb)) %></a>
+    	</li>
+		 <% end %>
+  <% end %>
+</ul>
+<% else %>
+ No Images Uploaded Yet.
+<% end %>
+
+<% if images.length > images.first.class.per_page %>
+	<div class='pagination' id='pagination' style='clear:both'>
+		Go to page:                      
+		<% if images.length > images.first.class.per_page and params[:page] != 1 %>
+			<%= link_to_remote 'First', :url => "#{gallery_admin_assets_path}?page=1" %>                     
+		<% end %>
+		<% if images.length > images.first.class.per_page and (params[:page] == 1) %>
+			<%= link_to_remote 'Last', :url => "#{gallery_admin_assets_path}?page=#{images.total_pages}" %> 
+		<% end %>
+		<% if images.previous_page %>
+			<%= link_to_remote 'Previous', :url =>"#{gallery_admin_assets_path}?page=#{images.previous_page}" %>
+		<% end %>
+		<% if images.next_page %>
+			<%= link_to_remote 'Next', :url =>"#{gallery_admin_assets_path}?page=#{images.next_page}", :method => :get %>
+		<% end %> 
+	</div>  
+<% end %>

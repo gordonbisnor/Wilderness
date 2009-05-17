@@ -1,0 +1,27 @@
+<% @item.password = @item.password_confirmation = nil %>
+
+	<%= error_messages_for :user %>
+
+	<% form_for([:admin,@item]) do |f| -%>
+
+		<%= label_tag 'name' %>
+		<%= f.text_field :name  %>
+
+		<%= label_tag 'login' %>
+		<%= f.text_field :login %>
+
+		<%= label_tag 'email' %>
+		<%= f.text_field :email %>
+
+		<%= label_tag 'password' %>
+		<%= f.password_field :password %>
+
+		<%= label_tag 'password_confirmation', 'Confirm Password' %>
+		<%= f.password_field :password_confirmation %>
+                        
+		<%= label_tag 'roles' %>
+		<%= collection_select :user, :role_ids, Role.all, :id, :name, { :selected => @item.role_ids }, { :multiple => true, :name => 'user[role_ids][]' } -%>
+
+		<%= submit_tag 'Submit' %>       
+   
+<% end -%>

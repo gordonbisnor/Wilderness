@@ -1,0 +1,13 @@
+<div class='comment' id='comment_<%= comment.id %>'>
+	<% unless @preferences[:use_comment_gravatars] == "No" %>
+		<div class='gravatar'>
+			<%= gravatar_for comment.author_email %>
+		</div>                                          
+	<% end %>
+	<div class='details'>
+		<strong><%= comment.title %></strong><br />
+		<%= simple_format(comment.content) %><br />
+		<%= comment.author %>      
+		Submitted <%= comment.created_at.to_s(:long) %>      
+	</div>
+</div>

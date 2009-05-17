@@ -1,0 +1,21 @@
+div.comment {
+	overflow:hidden;
+	border: 1px solid #CCC;
+	border-top-width:1px;
+	border-bottom-width:1px;
+	padding-left: 15px;
+	padding-right: 15px;
+	padding-top:15px;
+	padding-bottom:15px
+}
+div.comment div.gravatar {
+	float:left;
+}
+/* COMMENT SPACING WITHOUT GRAVATAR */
+div.comment div.details {
+	margin-left: 20px;
+}       
+/* MAKE SPACE FOR GRAVATAR IF TURNED ON */
+div.comment div.gravatar + div.details {
+	margin-left:75px;
+}

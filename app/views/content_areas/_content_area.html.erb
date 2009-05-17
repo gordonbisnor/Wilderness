@@ -1,0 +1,8 @@
+<div id='<%= area.title.downcase.gsub(' ','-') %>' class='<%= area.css_class %>'>
+	<% unless area.children.blank? %>   
+	<%= area.content_blocks.map { |block| send "#{block.title.downcase}_block" }.to_s %>
+		<%= area.children.map { |child| content_area(child) }.to_s %>
+	<% else %>
+			<%= area.content_blocks.map { |block| send "#{block.title.downcase}_block" }.to_s %>
+	 <% end %>      
+</div>

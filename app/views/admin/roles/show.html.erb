@@ -1,0 +1,16 @@
+<%= header(@klass) %>
+
+<dl id='<%= @klass.to_s.downcase %>_<%= @item.id %>'>
+
+	<dt>Role</dt>
+	<dd><%= @item.name %></dd>
+  
+	<dt>Edit</dt>
+	<dd><%= link_to image_tag('icons/pencil.png'), edit_admin_role_path(@item) %></th>
+
+	<dt>Delete</dt>
+	<dd><%= link_to image_tag('icons/delete.png'), [:admin,@item], :method => :delete, :confirm => 'Are you sure' %></dd>                              
+
+</dl>
+
+<%= render :partial => 'admin/users/table', :locals => { :items => @item.users } %>

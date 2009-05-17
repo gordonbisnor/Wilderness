@@ -1,0 +1,9 @@
+<div id='tabs'>
+<% @main_menu.each do |menu_item| %>
+	<% if menu_item.menu_itemable.attributes.include?('title') %>
+		<%= link_to menu_item.menu_itemable.title, menu_item.menu_itemable %>
+	<% elsif menu_item.menu_itemable.attributes.include?('name') %>
+			<%= link_to menu_item.menu_itemable.name, menu_item.menu_itemable %>                 
+	<% end %>     
+<% end unless Menu.first.blank? %>
+</div>

@@ -1,0 +1,4 @@
+<a  href="<%= item.public_filename %>" id="<%= "video-player-for-asset-#{item.id}" %>" class='video-player'></a> 
+<script>
+	flowplayer("<%= "video-player-for-asset-#{item.id}" %>","/flash/wilderness/flowplayer-3.1.0.swf");
+</script>

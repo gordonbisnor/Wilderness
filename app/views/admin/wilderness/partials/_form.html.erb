@@ -1,0 +1,23 @@
+<% form_for([:admin,@item]) do |f| %>
+  <%= f.error_messages %>
+	<% @wilderness.fields.each do |field| %>
+		<% unless field[:name] == 'position' %>
+			<%= f.label field[:name].to_sym %>     
+		<% end %>
+		<% if field[:type] == 'string' %>
+			<%= f.text_field field[:name].to_sym %>
+		<% elsif field[:type] == 'text' %>
+			<%= f.text_area :content, :class => "mceEditor" %>
+		<% elsif field[:type] == 'boolean' %>
+			<%= f.check_box field[:name].to_sym %>
+		<% elsif field[:type] == 'collection' %>
+			<% begin %>
+				<%= collection_select(@item.class.to_s.underscore.downcase.to_sym, field[:name].to_sym, field[:klass].all, :id, :title, :prompt => true) %>
+			<% rescue %>
+				<%= collection_select(@item.class.to_s.underscore.downcase.to_sym, field[:name].to_sym, field[:klass].all, :id, :name, :prompt => true) %>
+			<% rescue %>
+			<% end %>
+		<% end %>
+	<% end %>	                      
+  <%= wilderness_submit %>
+<% end %>

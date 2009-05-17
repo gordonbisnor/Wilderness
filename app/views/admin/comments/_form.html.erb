@@ -1,0 +1,25 @@
+<% form_for([:admin,@item]) do |f| %>
+  <%= f.error_messages %>
+	
+  <label>Comment Title</label>
+  <%= f.text_field :title %>
+
+  <label>Comment</label>
+  <%= f.text_area :content, :rows=>5, :cols=>50 %>
+
+  <label>Your Name</label>
+  <%= f.text_field :author %>
+
+  <label>Your Email</label>
+  <%= f.text_field :author_email %>
+
+  <label>Your Website</label>
+  <%= f.text_field :author_url %>
+
+  <%= f.hidden_field :commentable_type, :value => 'Comment' %>
+  <%= f.hidden_field :commentable_id, :value => '1' %>
+
+
+	<%= wilderness_submit %>
+
+<% end %>

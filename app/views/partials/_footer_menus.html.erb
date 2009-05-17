@@ -1,0 +1,67 @@
+  	<div class='menu'>
+			<% unless @pages.blank? %>
+			<h3>Pages</h3>
+			<ul>     
+				<li><%= link_to 'Home', root_path %></li>
+
+				<% @pages.each do |page| %>
+					<li><%= link_to page.title, "/#{page.title}" %></li>
+				<% end %>            
+			</ul>
+			<% end %>
+
+			<% unless @categories.blank? %>
+			<h3>Categories</h3>
+			<ul>
+				<% @categories.each do |category| %>
+					<li><%= link_to category.title, category %></li>
+				<% end %>
+			</ul>
+		  <% end %>
+
+			<% unless @archives.blank? %>
+				<h3>Archives</h3>
+				<%= render :partial => 'articles/archives' %> 
+			<% end %>
+
+			<% unless @tags.blank? %>
+				<h3>Tags</h3>
+				<ul>
+					<% @tags.each do |tag| %>
+						<li><%= link_to tag.name, tag_path(tag) %></li>
+					<% end %>
+				</ul>        
+			<% end %>
+
+			<% unless @links.blank? %>
+			<h3>Links</h3>
+			<ul>
+				<% @links.each do |link| %> 
+					<li><%= link_to link.title, link.url %></li>
+					<% end unless @links.blank? %>
+			</ul>                   
+			<% end %>
+
+		</div>
+
+		<div class='menu'>
+		 <h3>Search</h3>
+			<form action='/search' method='get'>
+				<input name='value' type='text'>
+				<input type='submit' value='Find'/>
+			</form>
+		 <h3>RSS Feeds</h3>                   
+		 <ul>
+			<li><%= link_to 'Articles', articles_path(:format => :rss) %></li>
+		 	<li><%= link_to 'Comments', comments_path(:format => :rss) %></li>
+		 </ul>
+		 <h3>Meta</h3> 	
+		 <ul>
+		<% if logged_in? %> 
+				<li><%= link_to 'Admin', dashboard_path %></li>
+				<li><%= link_to 'Logout', logout_path %></li>
+		 <% else %>
+			  <li><%= link_to 'Login', login_path %></li>
+			  <li><%= link_to 'Signup', signup_path %></li>
+			<% end %>
+		</div>

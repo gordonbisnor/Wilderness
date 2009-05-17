@@ -1,0 +1,18 @@
+<tr id='user_<%= user.id %>' class='users <%= zebra %>'>
+  <td><%= user.login %></td>
+  <td><%= user.identity_url %></td>
+  <td><%= user.name %></td>
+  <td><%= user.email %></td>
+  <td><%= user.state.titlecase %></td>
+  <td><%= user.activated_at.to_s(:short) unless user.activated_at.blank? %></td>
+  <td><%= user.deleted_at.to_s(:short) unless user.deleted_at.blank? %></td>
+  <td><%= user.created_at.to_s(:short) unless user.created_at.blank? %></td>
+  <td><%= user.updated_at.to_s(:short) unless user.updated_at.blank? %></td>
+	<td><%= user.roles.map { |role| link_to role.name.titlecase, [:admin,role] }.join(', ' ) %></td>
+	<td class='icon'><%= link_to image_tag('icons/magnifier.png'), admin_user_path(user), :title => 'Show' %></td>
+	<td class='icon'><%= link_to image_tag('icons/pencil.png'), edit_admin_user_path(user), :title => 'Edit' %></td>
+	<td class='icon'><%= link_to_remote image_tag('icons/delete.png'), :url => admin_user_path(user), :method => :delete, :confirm => 'Are you sure', :title => 'Delete' %></td>          
+	<td class='icon'>
+		<input type='checkbox' name="users[<%= user.id %>]" id='users[<%= user.id %>]' class='user'/>
+	</td>
+</tr>

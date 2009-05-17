@@ -1,0 +1,20 @@
+<% 
+klass = section.gsub(' ','').camelize.singularize.constantize 
+index = "/admin/#{klass.to_s.downcase.pluralize}"
+%>
+
+<%= link_to "<h2>#{section}</h2>", index %>
+<% if klass.count > 0 %>
+ <p>
+		<%= link_to "#{pluralize(klass.count,klass.to_s.downcase)}", index  %> |  
+		<% if klass.last.has_attribute?('title') %>
+ 			Latest: <%= link_to klass.last.title, [:admin,klass.last] if klass.count > 0 %>    
+		<% elsif klass.last.has_attribute?('name') %>
+ 			Latest: <%= link_to klass.last.name, [:admin,klass.last] if klass.count > 0 %>    
+		<% else %>
+			Latest: <%= link_to klass.last.id, [:admin,klass.last] if klass.count > 0 %>    
+		<% end %>
+ </p>     
+<% else %>
+	<p>No <%= section %> yet</p>
+<% end %>

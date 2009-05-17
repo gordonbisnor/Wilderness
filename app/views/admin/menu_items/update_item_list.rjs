@@ -1,0 +1,2 @@
+page.replace_html 'item_list', :partial => 'items', :locals => { :items => @items }
+page.visual_effect :highlight, 'items'

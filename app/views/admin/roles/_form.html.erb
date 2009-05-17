@@ -1,0 +1,16 @@
+<% form_for [:admin, @item] do |f| %>
+	<% error_messages_for :role %>
+	<%= f.label :name %>
+	<%= f.text_field :name %>       
+
+	<h2>Permissions</h2> 
+ <div class='checkbox-group'>
+		<% Permission.all.each do |permission| -%>
+			<%= check_box_tag 'role[permission_ids][]', permission.id, @item.permissions.include?(permission), :id => permission.title %> 
+			<label for='<%= permission.title %>'><%= permission.title %><label>
+				<br />
+	<% end -%>
+	</div> 
+	
+	<%= f.submit :Go %>
+<% end %>
