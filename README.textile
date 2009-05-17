@@ -1,7 +1,7 @@
 Wilderness
 ==========
 
-<img src='http://www.isnorcreative.com/images/wilderness-screenshots/dashboard.png' alt='WildernessCMS'/>
+<img src='http://www.isnorcreative.com/images/wilderness/dashboard.png' alt='WildernessCMS'/>
 
 h1. Wilderness
 
@@ -35,29 +35,29 @@ h2. To Do/Possible New Features:
 TO INSTALL
 #################################################
 
-# IF THE APP IS NOT CREATED YET, CREATE IT NOW:
+** IF THE APP IS NOT CREATED YET, CREATE IT NOW:
 rails -d myapp
 
-OR DEFAULT TO YOUR FAVORITE DATABASE: 
+* OR DEFAULT TO YOUR FAVORITE DATABASE: 
 rails -d mysql myapp
 
-# IF THE DATABASE IS NOT CREATED YET, CREATE IT NOW:
+* IF THE DATABASE IS NOT CREATED YET, CREATE IT NOW:
 rake db:create
 
-# RUN RAKE INSTALL TO GET SOME REQUIRED FILES INTO YOUR APP:
+* RUN RAKE INSTALL TO GET SOME REQUIRED FILES INTO YOUR APP:
 rake wilderness:install
 
-# MODIFY YOUR MAIN APPLICATION CONTROLLER INHERITANCE (myapplication/app/controllers/application_controller.rb):
+* MODIFY YOUR MAIN APPLICATION CONTROLLER INHERITANCE (myapplication/app/controllers/application_controller.rb):
 class ApplicationController < WildernessController
 
-# COPY AND PASTE TEST GEM DEPENDENCIES INTO CONFIG/ENVIRONMENTS/TEST.RB IF YOU WANT/NEED:   
+* COPY AND PASTE TEST GEM DEPENDENCIES INTO CONFIG/ENVIRONMENTS/TEST.RB IF YOU WANT/NEED:   
 config.gem "rspec", :lib => false, :version => '>=1.2.2'
 config.gem "rspec-rails", :lib => false, :version => '>=1.2.2'
 config.gem "webrat", :lib => false, :version => '>=0.4.3'
 config.gem "cucumber", :lib => false, :version => '>=0.3.2'
 config.gem "thoughtbot-factory_girl", :lib => "factory_girl", :source => "http://gems.github.com"
 
-# ADD ANY OF THESE REQUIRED GEM DEPENDENCIES TO CONFIG/ENVIRONMENT.RB:
+* ADD ANY OF THESE REQUIRED GEM DEPENDENCIES TO CONFIG/ENVIRONMENT.RB:
 config.gem "capistrano-ext", :lib => "capistrano"
 config.gem 'rubyist-aasm', :lib => 'aasm', :source => 'http://gems.github.com', :version => '2.0.5'
 config.gem 'mislav-will_paginate', :version => '2.3.6', :lib => 'will_paginate', :source => 'http://gems.github.com'
@@ -65,18 +65,18 @@ config.gem 'ruby-openid', :lib => 'openid', :version => '2.1.4'
 config.gem "giraffesoft-timeline_fu", :lib => "timeline_fu",
    :source => "http://gems.github.com"
 
-# PLUS THIS: 
+* PLUS THIS: 
 config.action_controller.session_store = :active_record_store
 config.active_record.observers = :user_observer
 
-# SITE KEYS CAN GO IN ENVIRONMENT.RB OR YOUR SPECIFIC ENVIRONMENT FILES:
+* SITE KEYS CAN GO IN ENVIRONMENT.RB OR YOUR SPECIFIC ENVIRONMENT FILES:
 REST_AUTH_SITE_KEY = 'f5945d1c74d3502f8a3de8562e5bf21fe3fec887'
 REST_AUTH_DIGEST_STRETCHES = 10
 
-# NOW YOU CAN MIGRATE YOUR DATABASE:
+* NOW YOU CAN MIGRATE YOUR DATABASE:
 rake db:migrate
 
-# SHOULD BE READY TO GO:
+* SHOULD BE READY TO GO:
 script/server
 
 #################################################
@@ -116,31 +116,26 @@ list of sortable sections in preferences (use the human name eg Menu Items inste
 
 myapp/config/initializers/wilderness-config.rb:
 
-# ASSOCIATION FIELDS:
+* ASSOCIATION FIELDS:
 Article.association_fields = {}
 
-# ACTIONS THAT REQUIRE A CUSTOM VIEW:
+* ACTIONS THAT REQUIRE A CUSTOM VIEW:
 Article.custom_views = []
 
-# JUMP MENU INDEX PAGE FILTERS
+* JUMP MENU INDEX PAGE FILTERS
 Article.filter_options = { :field => 'publish', :values => ['Yes','No'] }
 
-# OMIT FIELDS FOR ADMIN INDEX AND SHOW PAGES (TODO: MAKE THIS A HASH THAT TAKES SHOW OR INDEX AS THE KEY AND FIELDS AS THE VALUE): 
+* OMIT FIELDS FOR ADMIN INDEX AND SHOW PAGES (TODO: MAKE THIS A HASH THAT TAKES SHOW OR INDEX AS THE KEY AND FIELDS AS THE VALUE): 
 Article.omit_fields = ['title','content']
 
-# ADD FIELDS TO THE INDEX SEARCH ENGINE
+* ADD FIELDS TO THE INDEX SEARCH ENGINE
 Article.search_fields = ['Title']
 
-# 	
-def self.custom_methods
-	{'title'=>'method'}
-end
+* CUSTOM METHODS	
+Article.custom_methods = {'title'=>'method'}
 	
-# PRINT A COUNT OF “HAS MANY” RECORDS WITH A LINK TO THE NESTED RESOURCE
-eg links '3 Tags' to articles/3/tags
-def self.links_to_has_many_records
-   ['Tags']
-end
+# PRINT A COUNT OF “HAS MANY” RECORDS WITH A LINK TO THE NESTED RESOURCE eg links '3 Tags' to articles/3/tags
+Article.links_to_has_many_records = ['Tags']
 	
 #################################################
 # GENERAL APP CONFIGURATION OPTIONS
@@ -156,19 +151,7 @@ end
 #################################################
 Things to note:
 #################################################
-
 Public: 
-
 - TinyMCE has a custom plugin with image uploads and a paginated ajax image gallery
-
-Vendor/Plugins: 
-
-- acts_as_comment_state_machine adds some states and the has many comments association, pluginize to avoid duplication in models, maybe the comment class should be moved into the plugin too?
  
-gravatar hacks -- i was not crazy about the way this was implemented....
-# NOTE -- IT CURRENTLY IS HARD CODED TO USE THE ISNOR CREATIVE GRAVATAR....
-
-# WAS THINKING ABOUT TRYING TO MOVE ALL VIEWS INTO THE THEME FOLDER
-AND CONSOLIDATING THE FRONT END VIEWS so page and article eg would be one view... no reason why tey shouldn't be. in fact i don't really know why that isn't STI for that matter.
-
 Copyright (c) 2009 [Gordon B. Isnor], released under the MIT license
