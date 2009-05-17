@@ -1,6 +1,3 @@
-Wilderness
-==========
-
 <img src='http://www.isnorcreative.com/images/wilderness-screenshots/dashboard.png' alt='WildernessCMS'/>
 
 h1. Wilderness
