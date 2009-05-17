@@ -1,18 +1,83 @@
 Wilderness
 ==========
-I GUESS ANOTHER OPTION IS JUST LEAVE THE SHIT IN WILDERNESS. AND ONLY IF YOU NEED TO 
-CUSTOMIZE SOMETHING IN A CONTROLLER OR MODEL __ THEN YOU MOVE IT UP. IN THIS WAY YOU KNOW THAT ONLY THOSE THINGS THAT HAVE BEEN MOVED HAVE BEEN CHANGED?
 
-ABOUT
-A DEPLORABLE CRAZY CROSS BETWEEN STARTER SITE AND RAILS ENGINE PLUGIN
-YOU INSTALL THE PLUGIN, WHICH DOES HAVE SOME UPDATEABLE INDEPENDENT CORE FILES
-BUT THEN YOU ALSO RAKE INSTALL A SHITLOAD OF STUFF INTO YOUR MAIN APP ROOT WHICH I THINK IS REALLY A NIGHTMARE, BUT HAVE NOT FIGURED OUT A WORKAROUND. SO YOU START WITH THAT BASE, AND THEN START CUSTOMIZING THE INSTALLED MODELS AND CONTROLLERS IF YOU NEED TO AND YOU CAN JUST OVERWRITE ANY INDIVIDUAL VIEW FILES -- THAT’S NO BIG DEAL.... BUT THEN IF I DO DECIDE TO DO AN UPGRADE, AND START DICKING AROUND WITH THE APP CONTROLLER STUFF - ANYTHING THAT HAS BEEN RAKED INTO PLACE, IT BECOMES AN ISSUE BECAUSE THERE THE FILES HAVE DIVERGED, AND FOR THOSE FILES THEY WILL EITHER NEED TO BE COPIED AND PASTED/GIT MERGED SOMEHOW INTO SYNC, OR IN SOME CASES I GUESS THE FILES COULD BE OVERWRITTEN WITH RSYNC MAYBE THERE COULD BE AN OPTION OF UPGRADE TYPES: DESTRUCTIVE OR NON-DESTRUCTIVE?
-so maybe 
-wilderness:install (ONE POINT OH)
-wilderness-two-soft (TWO WITHOUT OVERWRITING)
-wilderness:two-hard (TWO WITH OVERWRITING) THIS WAY, NONE OF THE VIEWS ARE GONNA GET KILLED THE MODELS WILL, THE CONTROLLERS WILL, THEY SHOULD JUST BE USING THEIR OWN STYLESHEETS AND IMAGES? 
-I DON'T KNOW, THIS IS STARTING TO SEEM LIKE A ANOTHER ONE OF MY GRANDLY FUCKED UP IDEAS.
-EXCEPT IT DOES WORK BRILLIANTLY IF IT IS NOT MODIFIED AND YOU JUST DO THE HARD UPGRADE.... YOUR FRONT END VIEWS ARE NOT GOING TO GET TOUCHED, SO THAT MIGHT BE WHERE THE BULK OF THE MODS COME INTO PLAY? UNLESS I STAYED THE ORIGINAL COURSE, AND JUST FIGURED OUT A WAY FOR PEOPLE TO HOOK INTO THE API AND MODIFY MODELS AND CONTROLLERS LIKE DRUPAL TO CREATE A SORT OF API.... 
+<img src='http://www.isnorcreative.com/images/wilderness-screenshots/dashboard.png' alt='WildernessCMS'/>
+
+h1. Wilderness
+
+A Rails content maagement system/starter site Rails Engines plugin
+
+h2. Current Features:   
+
+* Uses Rails 2.3
+* Lives mostly in vendor/plugins (with the exception of some rake installed files)
+* Started from Bort base
+* Unobtrusive extendable auto admin section that takes care of default actions and automated show and index views.
+* Customize any action or view as you wish by dropping in override actions/views in controllers/views
+* Users, roles, permissions, roles permissions grouping
+* Comes with Articles, Pages, Categories, Comments (with Rakisment Spam Check if you want), Links, Tags, Assets
+* TinyMCE custom file upload and AJAX paginated file browser. 
+* Flowplayer for video playback (FLV, H.264 or MP4), 1-pixel out Mp3 player
+* Standard gems and plugins: capistrano, will paginate, cucumber, rspec, factory girl, openid, aasm, webrat, acts_as_taggable_on_steroids, attachment_fu, bundle-fu, forgot_password, gravatar-plugin (modified),
+hoptoad_notifier, open_id_authentication, rakismet, restful_authentication, role_requirement, sortable_column_headers, tiny_mce
+
+h2. To Do/Possible New Features:   
+
+* Themes 
+* More Tests
+* Acts As Versioned/Acts As Draftable
+* Option to Choose From Textile/Markdown/TinyMCE or simple format for text areas
+* Extra modules
+* Improving form automation, configuration options for index and show views etc.
+* Etc.
+     
+#################################################
+TO INSTALL
+#################################################
+
+# IF THE APP IS NOT CREATED YET, CREATE IT NOW:
+rails -d myapp
+
+OR DEFAULT TO YOUR FAVORITE DATABASE: 
+rails -d mysql myapp
+
+# IF THE DATABASE IS NOT CREATED YET, CREATE IT NOW:
+rake db:create
+
+# RUN RAKE INSTALL TO GET SOME REQUIRED FILES INTO YOUR APP:
+rake wilderness:install
+
+# MODIFY YOUR MAIN APPLICATION CONTROLLER INHERITANCE (myapplication/app/controllers/application_controller.rb):
+class ApplicationController < WildernessController
+
+# COPY AND PASTE TEST GEM DEPENDENCIES INTO CONFIG/ENVIRONMENTS/TEST.RB IF YOU WANT/NEED:   
+config.gem "rspec", :lib => false, :version => '>=1.2.2'
+config.gem "rspec-rails", :lib => false, :version => '>=1.2.2'
+config.gem "webrat", :lib => false, :version => '>=0.4.3'
+config.gem "cucumber", :lib => false, :version => '>=0.3.2'
+config.gem "thoughtbot-factory_girl", :lib => "factory_girl", :source => "http://gems.github.com"
+
+# ADD ANY OF THESE REQUIRED GEM DEPENDENCIES TO CONFIG/ENVIRONMENT.RB:
+config.gem "capistrano-ext", :lib => "capistrano"
+config.gem 'rubyist-aasm', :lib => 'aasm', :source => 'http://gems.github.com', :version => '2.0.5'
+config.gem 'mislav-will_paginate', :version => '2.3.6', :lib => 'will_paginate', :source => 'http://gems.github.com'
+config.gem 'ruby-openid', :lib => 'openid', :version => '2.1.4'
+config.gem "giraffesoft-timeline_fu", :lib => "timeline_fu",
+   :source => "http://gems.github.com"
+
+# PLUS THIS: 
+config.action_controller.session_store = :active_record_store
+config.active_record.observers = :user_observer
+
+# SITE KEYS CAN GO IN ENVIRONMENT.RB OR YOUR SPECIFIC ENVIRONMENT FILES:
+REST_AUTH_SITE_KEY = 'f5945d1c74d3502f8a3de8562e5bf21fe3fec887'
+REST_AUTH_DIGEST_STRETCHES = 10
+
+# NOW YOU CAN MIGRATE YOUR DATABASE:
+rake db:migrate
+
+# SHOULD BE READY TO GO:
+script/server
 
 #################################################
 CONTENT BLOCKS, CONTENT AREAS
@@ -49,38 +114,33 @@ list of sortable sections in preferences (use the human name eg Menu Items inste
 # PER MODEL OPTIONS 
 #################################################
 
-class MyModel < ActiveRecord::Base
+myapp/config/initializers/wilderness-config.rb:
 
-	# CUSTOM VIEW ONLY
-	def self.custom_views
-	['new','edit','whatever']
-	end
+# ASSOCIATION FIELDS:
+Article.association_fields = {}
 
-	# OMIT FIELD FROM INDEX/SHOW VIEW
-	def self.omit_fields
-		['created_at','updated_at','whatever]
-	end
+# ACTIONS THAT REQUIRE A CUSTOM VIEW:
+Article.custom_views = []
+
+# JUMP MENU INDEX PAGE FILTERS
+Article.filter_options = { :field => 'publish', :values => ['Yes','No'] }
+
+# OMIT FIELDS FOR ADMIN INDEX AND SHOW PAGES (TODO: MAKE THIS A HASH THAT TAKES SHOW OR INDEX AS THE KEY AND FIELDS AS THE VALUE): 
+Article.omit_fields = ['title','content']
+
+# ADD FIELDS TO THE INDEX SEARCH ENGINE
+Article.search_fields = ['Title']
+
+# 	
+def self.custom_methods
+	{'title'=>'method'}
+end
 	
-	# ADD A JUMP MENU FILTER
-	def self.filter_options
-	{ :field => 'publish', :values => 'Yes','No' }
-	end
-                                              
-	# ADD A SEARCH BOX
-	def self.search_fields
-		['title','whatever']
-	end
-	
-	# ADD IN ANY CUSTOM MODEL METHODS YOU WANT DISPLAYED
-	def self.custom_methods
-		{'title'=>'method'}
-	end
-	
-	# PRINT A COUNT OF “HAS MANY” RECORDS WITH A LINK TO THE NESTED RESOURCE
-	eg links '3 Tags' to articles/3/tags
-	def self.links_to_has_many_records
-    ['Tags']
-  end
+# PRINT A COUNT OF “HAS MANY” RECORDS WITH A LINK TO THE NESTED RESOURCE
+eg links '3 Tags' to articles/3/tags
+def self.links_to_has_many_records
+   ['Tags']
+end
 	
 #################################################
 # GENERAL APP CONFIGURATION OPTIONS
