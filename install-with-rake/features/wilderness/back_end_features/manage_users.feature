@@ -6,25 +6,23 @@ Feature: Manage Users
 	Scenario: View Users Index Page
 	Given I am logged in as admin
 	When I visit the users index page
-	Then I should see "viewer"
-	And I should see "admin"
+	Then I should see "admin"
 
 	Scenario: View Users Detail Page
 	Given I am logged in as admin
-	When I visit user "viewer"
-	Then I should see "viewer"
-	And I should see "viewer@viewer.com"
+	When I visit user "admin"
+	Then I should see "admin"
+	And I should see "admin@admin.com"
 	And I should see "Edit"
 	And I should see "Delete"
 
 	Scenario: Delete User
 	Given I am logged in as admin
-  When I visit user "viewer"
+  When I visit user "admin"
   And I follow "Delete"
   Then I should see "User Deleted"
 
   Scenario: Edit User
 	Given I am logged in as admin
-	When I visit user "viewer"
-	Then I should see "viewer"
-	
+	When I visit user "admin"
+	Then I should see "admin"

@@ -33,7 +33,7 @@ class User < ActiveRecord::Base
     @permission = false
     permission = Permission.find_by_title(action)                              
     self.roles.map { |role| does_this_role_have_permission?(role,permission) } unless permission.blank?
-    @permission = true if self.roles.first.permissions.map(&:title).include?('all')
+    @permission = true if !self.roles.blank? && self.roles.first.permissions.map(&:title).include?('all')
     return @permission
   end
 

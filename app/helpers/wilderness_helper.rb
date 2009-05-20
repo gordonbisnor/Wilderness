@@ -220,7 +220,7 @@ module WildernessHelper
   end
    
   def wilderness_submit
-    image_submit_tag 'wilderness/buttons/ok.png'
+    image_submit_tag 'wilderness/buttons/ok.png', :id => 'Go'
   end
   
   def preferences_table collection

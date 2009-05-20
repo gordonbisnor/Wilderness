@@ -7,7 +7,9 @@ module NavigationHelpers
     when  /the list of article/
       articles_path    
     # Add more page name => path mappings here
-    
+    when /the admin list of articles/
+      admin_articles_path
+      
     else
       raise "Can't find mapping from \"#{page_name}\" to a path.\n" +
         "Now, go and add a mapping in features/support/paths.rb"

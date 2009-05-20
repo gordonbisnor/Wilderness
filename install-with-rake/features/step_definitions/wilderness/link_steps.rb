@@ -1,5 +1,3 @@
-
-
 Given /^I have ([0-9]+) link$/ do |count|
   create_link
   Link.count.should == count.to_i

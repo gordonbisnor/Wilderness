@@ -14,4 +14,3 @@ Feature: View Articles
 		And I am on the list of articles
 		When I follow "Beach"
 		Then I should see "Beach"
-		
