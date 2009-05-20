@@ -1,5 +1,5 @@
 <%= header(@klass) %>
-<% unless @klass.responds_to?("custom_views") and @klass.custom_views.include?('new') %>         
+<% unless custom_view(:klass => @klass, :view => 'new') %>         
 	<%= render :partial => 'admin/wilderness/partials/form' %>
 <% else %>
 	<%= render :partial => 'form' %>

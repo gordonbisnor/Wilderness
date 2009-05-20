@@ -19,7 +19,9 @@ class WildernessMigration < ActiveRecord::Migration
       t.integer :position
       t.timestamps
     end
+
     Article.create(:title => 'Welcome To WildernessCMS',:content => 'Welcome To WildernessCMS, this is a default article. To login, use the Bort default user: admin/chester',:publish => true,:user_id => 1)
+
     
     # ASSETS
     create_table :assets do |t|
@@ -142,7 +144,7 @@ class WildernessMigration < ActiveRecord::Migration
       t.integer :position
       t.timestamps
     end  
-     
+
     # PERMISSIONS
     create_table :permissions do |t|
       t.string :title

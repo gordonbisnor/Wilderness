@@ -1,3 +1,16 @@
+# Application Options
+
+Wilderness::SECTIONS = ['Articles','Assets','Categories','Comments','Links','Pages','Permissions','Roles','Roles Permissions','Users']
+
+Wilderness::DASHBOARD_SECTIONS = ['Articles','Assets','Categories','Comments','Links','Pages']    
+
+Wilderness::CAN_BE_ADDED_TO_MENUS =  [ 'Article', 'Page', 'Tag', 'Category',  'Asset' ]
+
+Wilderness::NON_EDITABLE_FIELDS = ['created_at','updated_at','state','activated_at','id','filename',
+ 'content_type','size','height','width','content']
+
+# Section Options
+ 
 Article.association_fields = {}
 Article.custom_views = []
 Article.filter_options = { :field => 'publish', :values => ['Yes','No'] }

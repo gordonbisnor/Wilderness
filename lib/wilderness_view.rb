@@ -165,7 +165,7 @@ private
   end
   
   def textual_column_value(item)
-     unless Wilderness::NON_EDITABLES.include?(@column.name) || @column.type.to_s == 'text'
+     unless Wilderness::NON_EDITABLE_FIELDS.include?(@column.name) || @column.type.to_s == 'text'
         @row_values <<  row_hash(@column.human_name, item.send(@column.name) || '', nil,true)
 	    else
         @row_values <<  row_hash(@column.human_name, item.send(@column.name) || '', nil ,false)

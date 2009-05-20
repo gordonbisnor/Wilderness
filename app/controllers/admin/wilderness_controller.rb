@@ -83,7 +83,7 @@ class Admin::WildernessController < ApplicationController
   def create
     @item = @klass.new(params[@klass.to_s.underscore.downcase.to_sym])
     @item.user_id = @current_user.id if @klass.column_names.include?('user_id')
-    if @item.save
+   if @item.save
       flash[:notice] = "#{@klass} Created"
       redirect_to [:admin,@item]
     else     
@@ -256,7 +256,7 @@ class Admin::WildernessController < ApplicationController
      
    def setup_in_place_editing
        @klass.columns.each do |field|
-         unless Wilderness::NON_EDITABLES.include?(field.name)
+         unless Wilderness::NON_EDITABLE_FIELDS.include?(field.name)
          ApplicationController::in_place_edit_for(@klass.to_s.downcase.to_sym, field.name.to_s.downcase.to_sym)      
          end 
      end

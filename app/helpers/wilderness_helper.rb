@@ -299,5 +299,8 @@ module WildernessHelper
   def delete_link path
     link_to_remote image_tag('wilderness/icons/delete.png'), :url => path, :method => :delete, :confirm => 'Are you sure', :title => 'Delete'
   end
-
+  
+  def custom_view args
+    args[:klass].responds_to?("custom_views") and !args[:klass].custom_views.blank? and args[:klass].custom_views.include?(args[:view])
+  end
 end

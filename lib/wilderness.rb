@@ -1,7 +1,13 @@
 class Wilderness
 
-  THEMES_PATH = "#{RAILS_ROOT}/themes/"
+  def self.human_name_for klass  
+    klass.to_s.underscore.humanize.pluralize
+  end
 
+  def section_is_draftable
+    Wilderness::DRAFTABLE_SECTIONS.include?(Wilderness.human_name_for @klass)
+  end
+ 
     def field_names
     @klass.columns.map { |column| add_field_name(column) }
     @field_names << { :name => "Tags", :sort => false } if @klass.public_instance_methods.include?('tags')
@@ -17,15 +23,6 @@ class Wilderness
       @field_names << calculate_field_name_for(column)
     end  
   end
-
-  SECTIONS = ['Articles','Assets','Categories','Comments','Links','Pages','Permissions','Roles','Roles Permissions','Users']
-
-  DASHBOARD_SECTIONS = ['Articles','Assets','Categories','Comments','Links','Pages']    
-
-  CAN_BE_ADDED_TO_MENUS =  [ 'Article', 'Page', 'Tag', 'Category',  'Asset' ]
- 
-  NON_EDITABLES = ['created_at','updated_at','state','activated_at','id','filename',
-   'content_type','size','height','width','content']   
   
 end
 
