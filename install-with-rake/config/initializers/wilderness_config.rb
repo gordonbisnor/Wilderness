@@ -1,7 +1,6 @@
 Article.association_fields = {}
 Article.custom_views = []
 Article.filter_options = { :field => 'publish', :values => ['Yes','No'] }
-Article.omit_fields = ['title','content']
 Article.search_fields = ['Title']
 
 Asset.association_fields = {} 
