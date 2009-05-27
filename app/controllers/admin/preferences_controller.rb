@@ -1,7 +1,7 @@
 class Admin::PreferencesController < Admin::AdminController
   
-  def index
-    @preferences = Preference.all
+  def index   
+    @prefs = Preference.all
     render :template => 'admin/preferences/index' 
   end
   

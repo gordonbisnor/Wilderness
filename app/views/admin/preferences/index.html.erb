@@ -2,7 +2,7 @@
 <form action='/admin/preferences/adjust' method='post'>
 	<input name="_method" type="hidden" value="put" />
 	<input name='authenticity_token' type='hidden' value='<%= form_authenticity_token %>'/>
-	<%= preferences_table @preferences %>
+	<%= preferences_table @prefs %>
 	<input type='submit' value='Go' style='clear:both'>
 </form>
 

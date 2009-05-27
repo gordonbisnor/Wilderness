@@ -29,7 +29,7 @@
 	<body>             
 		<%= navigation %>      
 		<div id="container">
-			<p><%= link_to APP_CONFIG[:site_name], '/' %> « go to site | Logged in as <%= current_user.name %></p> 
+			<p><%= link_to @preferences[:site_name], '/' %> « go to site | Logged in as <%= current_user.login %></p> 
 			<div id="content">
 				<%= flash_messages %>
 				<%= yield :layout %>
