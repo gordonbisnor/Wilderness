@@ -5,22 +5,13 @@
 <% unless @items.blank? %>
 <ul id='items' class='sortable-list'>
 	<% @items.each do |item| %>
-		<li id='item_<%= item.id %>'>
-			<% if item.attributes.include?("title") %>
-				<%= item.title -%>
-			<% elsif item.attributes.include?("name") %>
-				<%= item.name %>
-			<% else %>
-			<!-- THIS IS SOOOOOO NASTY - AH WE NEED TO BE ABLE TO SPEC A FIELD TO BE USED FOR MODELS -->
-			<%=h item.inspect.to_s %>
-			<% end %>
-		</li>
+	 <%= render :partial => 'admin/wilderness/partials/sort_list_item', :locals => {:item => item} %>
 	<% end %>
 </ul>
 <% else %>
 	<div id='nothing-found'>No Items Found</div>
 <% end %>
 
-<%= will_paginate @items %>
+<%= will_paginate @items if @items.is_a? WillPaginate::Collection %>
 
 <%= sortable_element :items, :url => { :action => 'sort' } %>

@@ -42,7 +42,15 @@ class Admin::WildernessController < ApplicationController
     if block_given? 
       @items = yield.paginate conditions
     else
-      @items = @klass.paginate conditions  
+      if params[:view] == 'list'           
+        if @klass.column_names.include?("parent_id")
+          @items = @klass.find(:all,:conditions => 'parent_id IS NULL')
+        else
+          @items = @klass.all
+        end
+      else
+        @items = @klass.paginate conditions  
+      end
     end
     @wilderness = WildernessView.new(@items) unless @items.blank?
     unless params[:view] == 'list'

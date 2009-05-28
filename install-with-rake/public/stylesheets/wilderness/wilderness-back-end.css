@@ -118,6 +118,18 @@ ul.sortable-list li {
 }
 ul.sortable-list li + li {
 	border-top-width: 0;
+}          
+ul.sortable-list li.parent {
+	color: #84C44F;
+	font-weight: bold;
+}
+ul.sortable-list li.has-children {
+	padding-left: 10px;
+	color: #333;
+	font-weight: bold;
+}                 
+ul.sortable-list li.no-children {
+	padding-left: 15px;
 }
 ul.sortable-list li:hover {
 	background-color: #E0F1D0;       
@@ -186,6 +198,7 @@ ul.navigation li ul {
 ul.navigation li:hover ul {
 	display: block;
 	position: absolute;
+	z-index: 999;
 	top: 0px;
 	left: 20px;
 	padding-left: 0;

@@ -1,0 +1,14 @@
+ <li id='item_<%= item.id %>' class="<%= tree_class_for(item) %>">
+		<% if item.attributes.include?("title") %>
+			<%= item.title -%>
+		<% elsif item.attributes.include?("name") %>
+			<%= item.name %>
+		<% else %>
+		<!-- THIS IS SOOOOOO NASTY - AH WE NEED TO BE ABLE TO SPEC A FIELD TO BE USED FOR MODELS -->
+		<%=h item.inspect.to_s %>
+		<% end %>
+	</li>
+	
+<% item.children.each do |child| %>	
+	<%= render :partial =>'admin/wilderness/partials/sort_list_item',:locals=>{:item=>child} %>
+<% end unless item.children.blank? %>

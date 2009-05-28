@@ -163,6 +163,18 @@ module WildernessHelper
 # BACK END
 ##############################################################################
 
+  def tree_class_for item
+    if item.attributes.include?("parent_id")
+      if item.parent_id.blank? || item.parent_id == 0
+        'parent'
+      elsif item.children.blank?
+        'no-children'
+      else    
+        'has-children'
+      end                     
+    end 
+  end  
+
   def navigation
     render :partial => 'admin/wilderness/layouts/admin_navigation'
   end
