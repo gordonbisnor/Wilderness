@@ -1,10 +1,12 @@
 <% form_for([:admin,@item]) do |f| %>
   <%= f.error_messages %>
 	<% @wilderness.fields.each do |field| %>
-		<% unless field[:name] == 'position' %>
+		<% unless field[:name] == 'position' || field[:name] == 'type' %>
 			<%= f.label field[:name].to_sym %>     
-		<% end %>
-		<% if field[:type] == 'string' %>
+		<% end %>                        
+		<% if field[:name] == 'type' %>
+			<%= f.hidden_field field[:name].to_sym %>
+		<% elsif field[:type] == 'string' %>
 			<%= f.text_field field[:name].to_sym %>
 		<% elsif field[:type] == 'text' %>
 			<%= f.text_area :content, :class => "mceEditor" %>
