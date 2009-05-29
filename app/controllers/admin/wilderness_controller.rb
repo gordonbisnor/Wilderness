@@ -70,7 +70,7 @@ class Admin::WildernessController < ApplicationController
     
   def show
     @wilderness = WildernessView.new(@item) unless @item.blank?
-    unless @klass.responds_to?("custom_views") and @klass.custom_views.include?('show')
+    unless @klass.responds_to?("custom_views") and !@klass.custom_views.blank? and @klass.custom_views.include?('show')
       render :template => 'admin/wilderness/pages/show'
     else
       render :template => "admin/#{controller_name}/show"
