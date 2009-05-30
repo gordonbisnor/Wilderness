@@ -3,7 +3,7 @@ class Asset < ActiveRecord::Base
   named_scope :parents, :conditions => 'parent_id IS NULL'
   named_scope :thumbs, :conditions => { :thumbnail => 'thumb' }
   
-  has_attachment :storage => :file_system,
+  has_attachment :storage => :file_system,:path_prefix => 'public/system',
     :thumbnails => { :thumb => [50, 50] }
       
    attr_accessible :title, :category_id 

@@ -31,7 +31,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :content_areas  
     admin.resources :content_blocks  
     admin.resources :preferences, :collection => { :adjust => :put }   
-    admin.resources :assets, :collection => { 'file_browser' => [:get,:post] }    
+    admin.resources :assets, :collection => { 'file_browser' => [:get,:post], 'gallery'=>[:get] }    
   end
 
   # ADMIN
