@@ -188,13 +188,13 @@ module WildernessHelper
   end
 
   def toggle_check_boxes klass
-    "<input type='checkbox' onclick='toggleCheckBoxes(this,\".#{klass.to_s.downcase.gsub(' ','_').singularize}\")'/>"  
+    "<input type='checkbox' onclick='Wilderness.toggleCheckBoxes(this,\".#{klass.to_s.downcase.gsub(' ','_').singularize}\")'/>"  
   end
 
   def act_on_checked arguments
     class_name = arguments[:class] 
     path = arguments[:path]                          
-    "<input type='submit' value='Go' onclick='return act_on_checked(\"#{class_name}\",\"#{path}\")'  style='display:inline;margin:0'/>"
+    "<input type='submit' value='Go' onclick='return Wilderness.act_on_checked(\"#{class_name}\",\"#{path}\")'  style='display:inline;margin:0'/>"
   end
 
   def new_item_link klass    
@@ -224,7 +224,7 @@ module WildernessHelper
         [option,"#{args[:model]}-#{args[:field]}-#{option.downcase}"]
      }
     options = options_for_select(options,session[:filter_by])
-    "View By #{args[:model].singularize.titlecase}: “#{args[:field].titlecase}” <select onchange='return filter(this,\"#{path}\");'>#{options}</select>"
+    "View By #{args[:model].singularize.titlecase}: “#{args[:field].titlecase}” <select onchange='return Wilderness.filter(this,\"#{path}\");'>#{options}</select>"
   end
 
   def search_form args

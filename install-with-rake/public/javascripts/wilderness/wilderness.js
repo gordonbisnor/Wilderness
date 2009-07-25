@@ -1,5 +1,4 @@
-// Place your application-specific JavaScript functions and classes here
-// This file is automatically included by javascript_include_tag :defaults
+Wilderness = new Object();
 
 /* 
 EXTENDS PROTOTYPE TO SET CHECKED WITH INVOKE
@@ -19,12 +18,12 @@ var dom_manip_methods = {
 Element.addMethods(dom_manip_methods);
 
 /* TOGGLES CHECKBOXES FOR CONTROL (this) WITH CLASS NAMED IN ARGUMENT */
-function toggleCheckBoxes(control,class_name) {
+Wilderness.toggleCheckBoxes = function(control,class_name) {
   $$(class_name).invoke('setDOMAttribute','checked',$(control).checked);
 }
 
 /* ACT ON CHECKED ITEMS */
-function act_on_checked(items,path) {       
+Wilderness.act_on_checked = function(items,path) {       
 	var action = $('act-on-checked').value;
   var collection = $$("."+items).pluck('id');
 	var ids = new Array;
@@ -41,7 +40,7 @@ function act_on_checked(items,path) {
 	return false;
 }
 
-function filter(item,path) {
+Wilderness.filter = function(item,path) {
 	window.location.href = path + "/?filter_by=" + item.value;
 	return false;
 }
