@@ -9,7 +9,7 @@
 		<% elsif field[:type] == 'string' %>
 			<%= f.text_field field[:name].to_sym %>
 		<% elsif field[:type] == 'text' %>
-			<%= f.text_area :content, :class => "mceEditor" %>
+			<%= f.text_area :content, :class => "#{text_editor}" %>
 		<% elsif field[:type] == 'boolean' %>
 			<%= f.check_box field[:name].to_sym %>
 		<% elsif field[:type] == 'collection' %>

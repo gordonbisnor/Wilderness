@@ -17,13 +17,13 @@ h2. Current Features:
 * Flowplayer for video playback (FLV, H.264 or MP4), 1-pixel out Mp3 player
 * Standard gems and plugins: capistrano, will paginate, cucumber, rspec, factory girl, openid, aasm, webrat, acts_as_taggable_on_steroids, attachment_fu, bundle-fu, forgot_password, gravatar-plugin (modified),
 hoptoad_notifier, open_id_authentication, rakismet, restful_authentication, role_requirement, sortable_column_headers, tiny_mce
+* Preference to change text area from TinyMCE to Textile, Markdown, Simple Format or plain output
 
 h2. To Do/Possible New Features:   
 
 * Themes 
 * More Tests
 * Acts As Versioned/Acts As Draftable
-* Option to Choose From Textile/Markdown/TinyMCE or simple format for text areas
 * Extra modules
 * Improving form automation, configuration options for index and show views etc.
 * Etc.
@@ -32,16 +32,19 @@ h2. To Do/Possible New Features:
 TO INSTALL
 #################################################
 
-** IF THE APP IS NOT CREATED YET, CREATE IT NOW:
+** IF THE APP IS NOT CREATED YET, CREATE IT:
 rails -d myapp
 
 * OR DEFAULT TO YOUR FAVORITE DATABASE: 
 rails -d mysql myapp
 
-* IF THE DATABASE IS NOT CREATED YET, CREATE IT NOW:
+* IF THE DATABASE IS NOT CREATED YET, CREATE IT:
 rake db:create
 
-* RUN RAKE INSTALL TO GET SOME REQUIRED FILES INTO YOUR APP:
+* INSTALL THE WILDERNESS PLUGIN:
+script/plugin install git://github.com/gordonbisnor/Wilderness.git
+
+* RUN WILDERNESS RAKE INSTALL TO GET SOME REQUIRED FILES INTO YOUR APP (USE CAUTION TO MAKE SURE IT DOES NOT OVERWRITE ANYTHING IMPORTANT):
 rake wilderness:install
 
 * MODIFY YOUR MAIN APPLICATION CONTROLLER INHERITANCE (myapplication/app/controllers/application_controller.rb):
@@ -62,6 +65,10 @@ config.gem 'ruby-openid', :lib => 'openid', :version => '2.1.4'
 config.gem "giraffesoft-timeline_fu", :lib => "timeline_fu",
    :source => "http://gems.github.com"
 
+IF YOU WANT TO USE MARKDOWN OR TEXTILE INSTEAD OF TINYMCE:
+config.gem 'BlueCloth', :lib => 'bluecloth'
+config.gem 'RedCloth' , :lib => 'redcloth', :version => '4.0.3', :source=>'http://gems.rubyforge.org'
+
 * PLUS THIS: 
 config.action_controller.session_store = :active_record_store
 config.active_record.observers = :user_observer
@@ -75,6 +82,11 @@ rake db:migrate
 
 * SHOULD BE READY TO GO:
 script/server
+
+SERVER SETUP NOTES
+#################################################
+If you’re using image processing software you’ll need to make sure you have the proper libraries installed. I’ve been finding mini_magick the easiest to get up and running on my server.
+#################################################
 
 #################################################
 CONTENT BLOCKS, CONTENT AREAS

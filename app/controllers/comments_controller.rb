@@ -18,9 +18,9 @@ class CommentsController < ApplicationController
   private
 
     def spam_check?
-        unless RAILS_ENV == 'test' || @preferences[:disable_spam_check] == 'Yes'   
-          Rakismet.const_set("KEY", @preferences[:spam_check_api_key])
-          Rakismet.const_set("URL", @preferences[:site_url])
+        unless RAILS_ENV == 'test' || @preferences.disable_spam_check == 'Yes'   
+          Rakismet.const_set("KEY", @preferences.spam_check_api_key)
+          Rakismet.const_set("URL", @preferences.site_url)
           CommentsController::has_rakismet 
         else      
           Comment.disable_spam_check = true

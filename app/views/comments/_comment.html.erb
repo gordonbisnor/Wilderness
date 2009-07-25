@@ -1,5 +1,5 @@
 <div class='comment' id='comment_<%= comment.id %>'>
-	<% unless @preferences[:use_comment_gravatars] == "No" %>
+	<% unless @preferences.use_comment_gravatars == "No" %>
 		<div class='gravatar'>
 			<%= gravatar_for comment.author_email %>
 		</div>                                          

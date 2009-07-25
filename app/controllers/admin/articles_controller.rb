@@ -4,7 +4,7 @@ class Admin::ArticlesController < Admin::AdminController
 private
 
   def get_article_preferences
-    if @preferences[:publish_articles_by_default] == "Yes"
+    if @preferences.publish_articles_by_default == "Yes"
       Article.publish_articles_by_default = true
     end  
   end

@@ -10,10 +10,10 @@
 
 	<%= link_to "Comments (#{article.comments.ham.length})", "#{article_path(article)}#comments" unless article.comments.blank? %><br />		  
 
-	<%= simple_format(truncate(strip_tags(article.content), :length => @preferences[:excerpt_length].to_i)) %> 
+	<%= simple_format(truncate(strip_tags(article.content), :length => @preferences.excerpt_length.to_i)) %> 
 
 	<p class='read-more'>
-		<%= link_to '...read more', article if article.content and article.content.length > @preferences[:excerpt_length].to_i %>
+		<%= link_to '...read more', article if article.content and article.content.length > @preferences.excerpt_length.to_i %>
 	</p>
 
 </li>

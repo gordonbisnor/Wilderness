@@ -7,7 +7,7 @@
 	<td style='min-width:250px'> 
 		Submitted <%= comment.created_at.to_formatted_s(:long) %><br />
 		<%= comment.title %><br />
-		<%= comment.content %><br />
+		<%= simple_format(comment.content) %><br />
 		<div class='actions' style='display:none;float:left'>
 			Actions: 
 			<% form_for([:admin,comment]) do |f| %>

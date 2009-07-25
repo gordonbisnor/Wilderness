@@ -1,8 +1,8 @@
 xml.instruct! :xml, :version=>"1.0" 
 xml.rss :version=>"2.0" do
   xml.channel do
-    xml.title @preferences[:site_name]
-    xml.description "#{@preferences[:site_name]} Articles"
+    xml.title @preferences.site_name
+    xml.description "#{@preferences.site_name} Articles"
     xml.link formatted_articles_url(:rss)
     xml.language('en-us')
       @articles.each do |article|

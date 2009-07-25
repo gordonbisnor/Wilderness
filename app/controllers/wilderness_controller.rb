@@ -16,7 +16,7 @@ class WildernessController < ActionController::Base
     
   # THIS IS NOT IN USE YET, MAYBE SHOULD BE DISCARDED IF NOT GOING TO USE
   def get_theme    
-    theme = @preferences[:theme]
+    theme = @preferences.theme
     @theme = YAML::load(File.open("#{Wilderness::THEMES_PATH}/#{theme}/info.yml")).symbolize_keys!
   end
   
@@ -52,17 +52,15 @@ class WildernessController < ActionController::Base
     end
    
     def get_preferences
-      @preferences = {}
-      preferences = Preference.all
-      preferences.each do |preference|
-        @preferences[preference.title.to_sym] = preference.setting
-      end  
+      hash = {}
+      Preference.all.map { |p| hash[p.title.to_sym] = p.setting }
+      @preferences = OpenStruct.new(hash)
       @sortable_sections = sortable_sections
     end
     
     def sortable_sections               
-      if @preferences[:sortable_sections]
-        @preferences[:sortable_sections].split(',').map(&:chomp).map { |m| m.gsub(" ","") }.map(&:singularize).map(&:constantize)  
+      if @preferences.sortable_sections
+        @preferences.sortable_sections.split(',').map(&:chomp).map { |m| m.gsub(" ","") }.map(&:singularize).map(&:constantize)  
       else
         []
       end

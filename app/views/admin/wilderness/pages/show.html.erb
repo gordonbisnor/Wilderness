@@ -11,6 +11,8 @@
 				<td>
 					<%= link_to "#{pluralize @item.send(field[:name].downcase.gsub(' ','_')).length, field[:name]}" , "#{@item.id}/#{field[:name].downcase.gsub(' ','_')}" %>
 				</td>
+			<% elsif field[:type] == :text_area %>
+				<td><%= formatted_text(field[:value]) %></td>
 			<% else %>
 				<td><%= field[:value] %></td>
 			<% end %>                  

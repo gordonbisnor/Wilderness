@@ -30,7 +30,7 @@
 	<body>             
 		<%= navigation %>      
 		<div id="container">
-			<p><%= link_to @preferences[:site_name], '/' %> « go to site | Logged in as <%= current_user.login %></p> 
+			<p><%= link_to @preferences.site_name, '/' %> « go to site | Logged in as <%= current_user.login %></p> 
 			<div id="content">
 				<%= flash_messages %>
 				<%= yield :layout %>

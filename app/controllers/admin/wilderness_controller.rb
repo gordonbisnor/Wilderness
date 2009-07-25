@@ -28,7 +28,7 @@ class Admin::WildernessController < ApplicationController
                                :paste_convert_headers_to_strong => true,
                                :theme_advanced_buttons3_add => %w{ pastetext,pasteword,selectall,fullscreen, advimage }
                              }
-
+  
   def dashboard           
     @timeline_events = TimelineEvent.paginate(:page => params[:page], :per_page => 5)                           
     @dashboard_sections = Wilderness::DASHBOARD_SECTIONS

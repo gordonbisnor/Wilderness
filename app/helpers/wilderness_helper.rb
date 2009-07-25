@@ -315,4 +315,24 @@ module WildernessHelper
   def custom_view args
     args[:klass].responds_to?("custom_views") and !args[:klass].custom_views.blank? and args[:klass].custom_views.include?(args[:view])
   end
+  
+  def text_editor
+    "mceEditor" if @preferences.text_editor == 'TinyMCE'
+  end
+   
+  def formatted_text field
+    case @preferences.text_editor
+      when "TinyMCE" || "Plain" || ""
+        field
+      when "Textile"
+        textilize(field)
+      when "Markdown"
+        markdown(field)
+      when "Simple Format"
+        simple_format(field)
+      else
+        field
+      end
+  end
+    
 end

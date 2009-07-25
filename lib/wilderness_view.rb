@@ -165,8 +165,10 @@ private
   end
   
   def textual_column_value(item)
-     unless Wilderness::NON_EDITABLE_FIELDS.include?(@column.name) || @column.type.to_s == 'text'
+     if !(Wilderness::NON_EDITABLE_FIELDS.include?(@column.name) || @column.type.to_s == 'text')
         @row_values <<  row_hash(@column.human_name, item.send(@column.name) || '', nil,true)
+     elsif @column.type.to_s == "text" 
+        @row_values <<  row_hash(@column.human_name, item.send(@column.name) || '', :text_area ,false)
 	    else
         @row_values <<  row_hash(@column.human_name, item.send(@column.name) || '', nil ,false)
 	    end
@@ -210,7 +212,7 @@ private
     rescue                                                      
        value = associated_record.send('name')  
     rescue
-      value = 'wang'
+      value = ''
     end                                                                     
     unless value.blank?
       @row_values <<  row_hash(@column.human_name, value)

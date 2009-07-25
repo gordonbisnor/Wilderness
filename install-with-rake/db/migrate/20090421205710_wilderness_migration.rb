@@ -200,6 +200,7 @@ class WildernessMigration < ActiveRecord::Migration
     Preference.create (:title => 'spam_check_api_key',:setting=>'')
     Preference.create (:title => 'number_of_items_to_include_in_rss_feeds',:setting=>'10')
     Preference.create (:title => 'sortable_sections',:setting=>'Menu Items,Content Areas,Content Blocks')
+    Preference.create (:title => 'text_editor',:setting=>"TinyMCE")
     
     # TAGS
     create_table :tags do |t|
