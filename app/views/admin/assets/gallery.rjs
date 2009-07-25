@@ -1,1 +1,5 @@
-page.replace_html :dynamic_images_list, :partial => 'show_image_list', :locals => { :images => @images }
+unless @images.blank?
+  page.replace_html :dynamic_images_list, :partial => 'show_image_list', :locals => { :images => @images }
+else 
+  page.replace_html :dynamic_images_list, :text => "<h1>No images found</h1><p>To upload an image, click the General tab (above), then use the file browser button (next to the Image URL field) to select, from your machine, a file to upload."
+end
