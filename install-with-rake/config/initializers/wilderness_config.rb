@@ -2,6 +2,8 @@
 
 Wilderness::SECTIONS = ['Articles','Assets','Categories','Comments','Links','Pages','Permissions','Roles','Roles Permissions','Users']
 
+Wilderness::ADMIN_MENU = ['Dashboard','Content','Layout','Users','Preferences']
+
 Wilderness::DASHBOARD_SECTIONS = ['Articles','Assets','Categories','Comments','Links','Pages']    
 
 Wilderness::CAN_BE_ADDED_TO_MENUS =  [ 'Article', 'Page', 'Tag', 'Category',  'Asset' ]

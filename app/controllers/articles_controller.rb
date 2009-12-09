@@ -22,7 +22,8 @@ class ArticlesController < ApplicationController
   end
   
   def show
-    @article = Article.published.find(params[:id])
+    id = params[:id]
+    @article = Article.published.find(:first,:conditions=>["url_slug = ? OR title = ? OR id = ?",id,id,id])
     @comment = Comment.new if @article.open_for_comments?
   end
   

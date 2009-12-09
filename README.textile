@@ -25,7 +25,7 @@ h2. To Do/Possible New Features:
 * More Tests
 * Acts As Versioned/Acts As Draftable
 * Extra modules
-* Improving form automation, configuration options for index and show views etc.
+* Improving form automation, more configuration options for index and show views etc.
 * Etc.
      
 #################################################
@@ -134,8 +134,11 @@ Article.custom_views = []
 * JUMP MENU INDEX PAGE FILTERS
 Article.filter_options = { :field => 'publish', :values => ['Yes','No'] }
 
-* OMIT FIELDS FOR ADMIN INDEX AND SHOW PAGES (TODO: MAKE THIS A HASH THAT TAKES SHOW OR INDEX AS THE KEY AND FIELDS AS THE VALUE): 
+* OMIT FIELDS FOR BOTH ADMIN INDEX AND SHOW PAGES 
 Article.omit_fields = ['title','content']
+
+* OMIT FIELDS FOR JUST THE ADMIN INDEX PAGE
+Article.index_omit_fields = ["content","title"]
 
 * ADD FIELDS TO THE INDEX SEARCH ENGINE
 Article.search_fields = ['Title']

@@ -52,7 +52,7 @@ class Admin::WildernessController < ApplicationController
         @items = @klass.paginate conditions  
       end
     end
-    @wilderness = WildernessView.new(@items) unless @items.blank?
+    @wilderness = WildernessView.new(@items,{:page => :index}) unless @items.blank?
     unless params[:view] == 'list'
       render :template => 'admin/wilderness/pages/index'
     else
@@ -246,7 +246,12 @@ class Admin::WildernessController < ApplicationController
      end
  
     def get_item
-      @item = @klass.find(params[:id])
+      if ["Article","Page"].include? @klass.to_s
+        id = params[:id]
+        @item = @klass.find(:first, :conditions =>["url_slug = ? OR title = ? OR id = ?",id,id,id] )
+      else
+        @item = @klass.find(params[:id])
+      end
     end
  
     def must_be_logged_in

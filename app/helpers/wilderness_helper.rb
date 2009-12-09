@@ -115,11 +115,13 @@ module WildernessHelper
 ##############################################################################
 # FRONT END 
 ##############################################################################
-
+  
+  # Renders the content_areas/content_area partial for the argued ContentArea object
   def content_area area
     render :partial => 'content_areas/content_area', :locals => { :area => area }
   end
-     
+
+  # Builds a menu, made up of link tags, for the argued Menu object
   def menu menu
     display = ""
     menu.each do |menu_item|
@@ -141,19 +143,23 @@ module WildernessHelper
       super meth, args
     end
   end
- 
+  
+  # Used for zebra-striping rows. Cycles between “odd” and “even”
   def zebra
     cycle('odd','even')
   end
 
+  # Renders the partials/audio_player partial for argued item
   def audio_player item
     render :partial => 'partials/audio_player', :locals => { :item => item }
   end
-
+  
+  # Renders the partials/video_player partial for argued item
   def video_player item
     render :partial => 'partials/video_player', :locals => { :item => item }
   end 
 
+  # Renders the comments/comments partial for argued item
   def comments_for item                                                                 
     klass = item.class
     render :partial => 'comments/comments', :locals => { :klass => klass, :item => item }
@@ -163,6 +169,7 @@ module WildernessHelper
 # BACK END
 ##############################################################################
 
+  # Return a string for acts_as_tree items. Returns "parent", "no-children" or "has-children"
   def tree_class_for item
     if item.attributes.include?("parent_id")
       if item.parent_id.blank? || item.parent_id == 0
@@ -174,11 +181,13 @@ module WildernessHelper
       end                     
     end 
   end  
-
+  
+  # Renders admin/wilderness/layouts/admin_navigation partial
   def navigation
     render :partial => 'admin/wilderness/layouts/admin_navigation'
   end
 
+  # Determines column span needed for index page pages
   def colspan
     colspan = @klass.columns.length + 4
     colspan += 1 if @klass.public_instance_methods.include?('tags')
@@ -187,16 +196,22 @@ module WildernessHelper
     colspan
   end
 
+  # Toggles all check boxes that have the argued klass
   def toggle_check_boxes klass
     "<input type='checkbox' onclick='Wilderness.toggleCheckBoxes(this,\".#{klass.to_s.downcase.gsub(' ','_').singularize}\")'/>"  
   end
 
+  # Creates a submit button that will return Wilderness.act_on_checked for class and url path
+  # Arguments: 
+  # class
+  # path (url)
   def act_on_checked arguments
     class_name = arguments[:class] 
     path = arguments[:path]                          
     "<input type='submit' value='Go' onclick='return Wilderness.act_on_checked(\"#{class_name}\",\"#{path}\")'  style='display:inline;margin:0'/>"
   end
 
+  # Builds a new item button for klass
   def new_item_link klass    
     unless klass.responds_to?('admin_disabled_actions') and klass.admin_disabled_actions.include?('new')
       x = "<div style='float:left;margin-right:15px;padding-top:5px'>"
@@ -204,7 +219,8 @@ module WildernessHelper
       x += "</div>"
     end
   end
-  
+
+  # Renders admin/wilderness/partials/header partial
   def header klass
     render :partial => 'admin/wilderness/partials/header', :locals => { :klass => klass }
   end
@@ -226,15 +242,18 @@ module WildernessHelper
     options = options_for_select(options,session[:filter_by])
     "View By #{args[:model].singularize.titlecase}: “#{args[:field].titlecase}” <select onchange='return Wilderness.filter(this,\"#{path}\");'>#{options}</select>"
   end
-
+  
+  # Renders admin/wilderness/partials/search_form partial
   def search_form args
     render :partial => 'admin/wilderness/partials/search_form', :locals => { :path => args[:path], :options => args[:options] }
   end
    
+  # Builds an image submit button tag (wilderness/buttons/ok.png) with the id “Go”
   def wilderness_submit
     image_submit_tag 'wilderness/buttons/ok.png', :id => 'Go'
   end
-  
+
+  # Creates a view for preferences page
   def preferences_table collection
     # this only works (by chance) for 3 columns layout, because the math is weak 
     columns = 3.to_f
@@ -299,27 +318,39 @@ module WildernessHelper
     end             
     table += "</table>"
   end
-
+  
+  # Builds a “show” page icon image link, for the supplied path, using the  magnifier.png icon
   def show_link path
     link_to image_tag('wilderness/icons/magnifier.png'), path, :title => 'Show' 
   end
-
+  
+  # Builds an “edit” page icon image link, for the supplied path, using the pencil.png icon
   def edit_link path
     link_to image_tag('wilderness/icons/pencil.png'), edit_polymorphic_path(path), :title => 'Edit'
   end
   
+  # Builds a link_to_remote “delete” icon image link for the supplied path, using the delete.png icon
   def delete_link path
     link_to_remote image_tag('wilderness/icons/delete.png'), :url => path, :method => :delete, :confirm => 'Are you sure', :title => 'Delete'
   end
-  
+
+  # Is a custom view required?
+  # Arguments: args{:klass=> klass, :view => "view" }
   def custom_view args
     args[:klass].responds_to?("custom_views") and !args[:klass].custom_views.blank? and args[:klass].custom_views.include?(args[:view])
   end
   
+  # Return mceEditor string if @preferences.text_editor is set to “TinyMCE”. Used as a class on a textarea, this turn on TinyMCE
   def text_editor
     "mceEditor" if @preferences.text_editor == 'TinyMCE'
   end
    
+  # Will process field with textilize, markdown, simple_format or nothing dependings on @preferences settings
+  # TinyMCE, Plain, "" = no formatting
+  # Textile = textilize(content)
+  # Markdown = markdown(content) 
+  # Simple Format = simple_format(content)
+  # Arguments: "content" string
   def formatted_text field
     case @preferences.text_editor
       when "TinyMCE" || "Plain" || ""

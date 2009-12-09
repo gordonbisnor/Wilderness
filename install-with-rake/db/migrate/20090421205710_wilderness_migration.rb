@@ -11,6 +11,7 @@ class WildernessMigration < ActiveRecord::Migration
     # ARTICLES
     create_table :articles do |t|
       t.string :title
+      t.string :url_slug
       t.text :content
       t.boolean :publish, :default => false    
       t.integer :user_id  
@@ -136,6 +137,7 @@ class WildernessMigration < ActiveRecord::Migration
     # PAGES
     create_table :pages do |t|
       t.string :title
+      t.string :url_slug
       t.text :content
       t.boolean :publish, :default => false
       t.integer :user_id  

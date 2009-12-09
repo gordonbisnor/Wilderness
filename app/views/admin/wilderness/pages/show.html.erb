@@ -4,7 +4,7 @@
 	
 	<% @wilderness.records[:fields].each do |field| %>
 	<tr class='<%= zebra %>'>
-			<th><%= field[:name] %></th>
+		<th><%= field[:name].titlecase %></th>
 			<% if field[:type] == :image %>
 				<td><%= image_tag(field[:value],:class=>'image') %></td>
 			<% elsif field[:type] == :has_many_link %>	

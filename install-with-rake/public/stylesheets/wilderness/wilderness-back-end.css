@@ -166,6 +166,10 @@ div.checkbox-group input[type='checkbox'], div.checkbox-group label {
 div.checkbox-group input[type='checkbox'] {
 	margin-right: 5px;
 }
+.text_editor {
+	width: 50%;
+	height: 400px;
+}
 /* NAVIGATION */
 ul.navigation {
 	margin: 0;

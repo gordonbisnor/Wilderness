@@ -2,8 +2,9 @@ class WildernessView < Wilderness
   
   attr_reader :title, :controller_name, :associations
   
-  def initialize items
+  def initialize items, options = nil
     @items = items 
+    @page = options[:page] if options.present? && options[:page].present?
     @klass = items.responds_to?(:first) ? items.first.class : items.class
     @controller_name = @klass.to_s.underscore.downcase.pluralize  
     @field_names = []
@@ -73,7 +74,7 @@ class WildernessView < Wilderness
   end
   
   def omitted? column  
-    @klass.respond_to?("omit_fields") && !@klass.omit_fields.blank? && @klass.omit_fields.include?(@column.name)
+    (@klass.respond_to?("omit_fields") && !@klass.omit_fields.blank? && @klass.omit_fields.include?(@column.name)) || (@page == :index && @klass.respond_to?("index_omit_fields") && !@klass.index_omit_fields.blank? && @klass.index_omit_fields.include?(@column.name))
   end
     
   def add_custom_values_for item
@@ -122,6 +123,12 @@ class WildernessView < Wilderness
         @row_values << row_hash(title, '', :has_many_link)
       end 
     end
+  end
+
+  def add_field_name column
+    if !@klass.respond_to?("omit_fields") || @klass.responds_to?('omit_fields') && @klass.omit_fields.blank? || @klass.responds_to?('omit_fields') && !@klass.omit_fields.blank? && !@klass.omit_fields.include?(column.name)
+      @field_names << calculate_field_name_for(column) if !(@page == :index && @klass.respond_to?("index_omit_fields") && !@klass.index_omit_fields.blank? && @klass.index_omit_fields.include?(column.name))          
+    end  
   end
 
 private
@@ -248,5 +255,5 @@ private
       @row_values << row_hash(@column.human_name, 'wilderness/icons/disk.png', :image)
     end
   end  
-    
+       
 end

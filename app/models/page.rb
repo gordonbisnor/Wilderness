@@ -10,11 +10,17 @@ class Page < ActiveRecord::Base
   fires :destroy, :on => :destroy, :actor => :user
   
   def to_param
+    if url_slug.present?
+      url_slug
+    elsif title.present?
       "#{id}-#{title.gsub(/[^a-z0-9]+/i, '-')}"
+    else  
+      id.to_s
     end
+  end
 
   class << self
-    attr_accessor :omit_fields, :search_fields, :filter_options, :association_fields, :custom_views; 
+    attr_accessor :omit_fields, :search_fields, :filter_options, :association_fields, :custom_views, :omit_relationships 
   end
 
 end

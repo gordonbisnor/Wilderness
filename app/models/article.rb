@@ -14,8 +14,14 @@ class Article < ActiveRecord::Base
   class << self; attr_accessor :publish_articles_by_default; end
 
   def to_param
+    if url_slug.present?
+      url_slug
+    elsif title.present?
       "#{id}-#{title.gsub(/[^a-z0-9]+/i, '-')}"
+    else
+      id.to_s
     end
+  end
 
   class << self
     attr_accessor :omit_fields, :search_fields, :filter_options, :association_fields, :custom_views; 

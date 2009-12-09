@@ -1,29 +1,39 @@
-	 <ul class='navigation'>
-		<li class='wilderness-info'>
-			<%= image_tag('wilderness/wilderness-cms.png', :alt=>'WildernessCMS') %>
-		 </li>
-			<% if logged_in? %>
-				<li><%= link_to 'Dashboard', dashboard_path %></li>
-				<li><%= link_to 'Content', admin_articles_path %>
-					<ul>
-						<li><%= link_to 'Articles', admin_articles_path %></li>
-						<li><%= link_to 'Comments', admin_comments_path %></li>
-						<li><%= link_to 'Tags', admin_tags_path %></li>
-						<li><%= link_to 'Links', admin_links_path %></li>
-						<li><%= link_to 'Categories', admin_categories_path %></li>
-						<li><%= link_to 'Assets', admin_assets_path,:title => 'This Section Manages Images and Files' %></li>
-						<li><%= link_to 'Pages', admin_pages_path %></li>
-					</ul>
-				</li>  
-				<li>Layout
-					<ul>
-						<li><%= link_to 'Menus', admin_menus_path %></li>
-						<li><%= link_to 'Menu Items', admin_menu_items_path %></li>
-						<li><%= link_to 'Content Areas', admin_content_areas_path, :title => 'This Section Manages The Layout Areas eg Header, Content, Footer' %></li>
-							<li><%= link_to 'Content Blocks', admin_content_blocks_path, :title => 'This Section Manages Content Blocks - Create An Entry For A Block Here And Assign It To A Content Area, Then Drop A File In “Partials”' %></li>
-					</ul>
-				</li>
-				<li><%= link_to 'Users', admin_users_path %>
+<ul class='navigation'>
+	<li class='wilderness-info'>
+		<%= image_tag('wilderness/wilderness-cms.png', :alt=>'WildernessCMS') %>
+	</li>
+	<% if logged_in? %>
+		<% if Wilderness::ADMIN_MENU.include? 'Dashboard' -%>
+			<li><%= link_to 'Dashboard', dashboard_path %></li>
+		<% end -%>
+
+		<% if Wilderness::ADMIN_MENU.include? 'Content' -%>
+			<li><%= link_to 'Content', admin_articles_path %>
+				<ul>
+					<li><%= link_to 'Articles', admin_articles_path %></li>
+					<li><%= link_to 'Comments', admin_comments_path %></li>
+					<li><%= link_to 'Tags', admin_tags_path %></li>
+					<li><%= link_to 'Links', admin_links_path %></li>
+					<li><%= link_to 'Categories', admin_categories_path %></li>
+					<li><%= link_to 'Assets', admin_assets_path,:title => 'This Section Manages Images and Files' %></li>
+					<li><%= link_to 'Pages', admin_pages_path %></li>
+				</ul>
+			</li>  
+		<% end -%>
+			
+		<% if Wilderness::ADMIN_MENU.include? 'Layout' -%>
+			<li>Layout
+				<ul>
+					<li><%= link_to 'Menus', admin_menus_path %></li>
+					<li><%= link_to 'Menu Items', admin_menu_items_path %></li>
+					<li><%= link_to 'Content Areas', admin_content_areas_path, :title => 'This Section Manages The Layout Areas eg Header, Content, Footer' %></li>
+					<li><%= link_to 'Content Blocks', admin_content_blocks_path, :title => 'This Section Manages Content Blocks - Create An Entry For A Block Here And Assign It To A Content Area, Then Drop A File In “Partials”' %></li>
+				</ul>
+			</li>
+		<% end -%>
+			
+		<% if Wilderness::ADMIN_MENU.include? 'Users' %>
+			<li><%= link_to 'Users', admin_users_path %>
 				<ul>
 					<li><%= link_to 'Users', admin_users_path %>
 					<li><%= link_to 'Roles', admin_roles_path %></li>
@@ -31,10 +41,16 @@
 					<li><%= link_to 'Roles Permissions', admin_roles_permissions_path %></li>
 				</ul>
 			 	</li>   
+		<% end -%>
+		
+		<% if Wilderness::ADMIN_MENU.include? 'Preferences' %>
 			<li><%= link_to 'Preferences', admin_preferences_path %></li>
-				<li><%= link_to 'Logout', logout_path %></li>
-			<% else %>
+		<% end -%>
+
+		<li><%= link_to 'Logout', logout_path %></li>
+			
+		<% else -%>
 			<li><%= link_to 'Login', login_path %></li>
 			<li><%= link_to 'Signup', signup_path %></li>
-			<% end %>
-		</ul>
+		<% end -%>
+	</ul>

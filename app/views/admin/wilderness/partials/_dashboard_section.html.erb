@@ -1,7 +1,4 @@
-<% 
-klass = section.gsub(' ','').camelize.singularize.constantize 
-index = "/admin/#{klass.to_s.downcase.pluralize}"
-%>
+<% klass = section.gsub(' ','').camelize.singularize.constantize ;index = "/admin/#{klass.to_s.downcase.pluralize}" %>
 
 <%= link_to "<h2>#{section}</h2>", index %>
 <% if klass.count > 0 %>
