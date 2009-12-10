@@ -6,7 +6,7 @@
 			<% if field[:type] == :image %>
 					<td id='<%= "#{@wilderness.controller_name.singularize}_#{field[:name].downcase.gsub(' ','_')}_#{row[:item].id}" %>'><%= image_tag(field[:value])%></td>
 			<% else %>
-				<td id='<%= "#{@wilderness.controller_name.singularize}_#{field[:name].downcase.gsub(' ','_')}_#{row[:item].id}" %>'><span id='<%= "#{field[:name].downcase.gsub(' ','_')}_#{row[:item].id}" %>'><%= truncate(strip_tags(field[:value].to_s),:length => 20) %></span></td> 
+			<td id='<%= "#{@wilderness.controller_name.singularize}_#{field[:name].downcase.gsub(' ','_')}_#{row[:item].id}" %>'><span id='<%= "#{field[:name].downcase.gsub(' ','_')}_#{row[:item].id}" %>'><%= truncate(strip_tags(field[:value].to_s),:length => field[:name] == 'Title' ? 100 : 20) %></span></td> 
 				<% if field[:editable] == true %>
 					<%= in_place_editor "#{field[:name].downcase.gsub(' ','_')}_#{row[:item].id}", :url => "#{controller_name}/set_#{@klass.to_s.downcase}_#{field[:name].downcase}/#{row[:item].id}" %>
 				<% end %>

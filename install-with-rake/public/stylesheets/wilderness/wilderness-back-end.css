@@ -52,7 +52,7 @@ td, th {
 	padding: 5px;
 	border: 1px solid #BBB;
 	vertical-align: top;       
-	text-align: center;
+	text-align: left;
 } 
 th.checked-actions {
 	text-align: right;

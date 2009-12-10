@@ -1,9 +1,9 @@
-<% klass = section.gsub(' ','').camelize.singularize.constantize ;index = "/admin/#{klass.to_s.downcase.pluralize}" %>
+<% klass = section.gsub(' ','').camelize.singularize.constantize ;index = "/admin/#{klass.to_s.underscore.downcase.pluralize}" %>
 
 <%= link_to "<h2>#{section}</h2>", index %>
 <% if klass.count > 0 %>
  <p>
-		<%= link_to "#{pluralize(klass.count,klass.to_s.downcase)}", index  %> |  
+		<%= link_to "#{pluralize(klass.count,section.humanize.titlecase)}", index  %> |  
 		<% if klass.last.has_attribute?('title') %>
  			Latest: <%= link_to klass.last.title, [:admin,klass.last] if klass.count > 0 %>    
 		<% elsif klass.last.has_attribute?('name') %>

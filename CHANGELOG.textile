@@ -7,3 +7,6 @@ h2. December 9, 2009
 	Wilderness::ADMIN_MENU = ['Dashboard','Content','Layout','Users','Preferences'] 
 * Added configuration for admin index pages, example:
 	Asset.omit_fields = ['parent_id','thumbnail','assetable_type','assetable_id','category_id']
+* Admin pagination CSS bug fix
+* Admin index page: change truncate from 20 to 100 chars
+* Fixed view bug in Admin Dashboard with camelized model names eg RadioShow

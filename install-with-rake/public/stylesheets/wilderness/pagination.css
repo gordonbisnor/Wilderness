@@ -1,3 +1,6 @@
+.pagination * {
+	font-family: arial, helvetica, sans-serif;
+}
 .pagination, .paginate-info { 
 	font-size: 12px;
 	text-align: left;
