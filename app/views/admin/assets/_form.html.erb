@@ -1,7 +1,7 @@
 <% form_for([:admin,@item], :html => {:multipart => true} ) do |f| %>
   
 	<%= f.label :file %>
-	<%= f.file_field :uploaded_data %>
+	<%= f.file_field :attachment %>
 	
 	<%= f.label :title %>
 	<%= f.text_field :title %>

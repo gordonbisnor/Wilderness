@@ -1,12 +1,10 @@
 <% if images.size > 0 %>
 <ul>
   <% images.each do |image| %>
-		<% if image.parent_id.blank? %>
     	<li>
-      	<a href="javascript:void(0)" onclick="<%= "ImageDialog.showWildernessPreview('#{image.public_filename}');ImageDialog.wildernessInsertImage('#{image.public_filename}','#{image.title || " "}');" %>">
-      <%= image_tag(image.public_filename(:thumb)) %></a>
+      	<a href="javascript:void(0)" onclick="<%= "ImageDialog.showWildernessPreview('#{image.attachment.url}');ImageDialog.wildernessInsertImage('#{image.attachment.url}','#{image.title || " "}');" %>">
+      <%= image_tag(image.attachment.url(:thumb)) %></a>
     	</li>
-		 <% end %>
   <% end %>
 </ul>
 <% else %>

@@ -152,7 +152,7 @@ private
   end 
 
   def field_value_for item
-	  if @column.name == 'filename' 
+	  if @column.name.match('(.*)_file_name' )
       image_field_value_for item
     elsif @column.name == 'comment_state'
       comment_state_field_value_for item
@@ -237,10 +237,11 @@ private
     end
   end  
 
-  def image_field_value_for item
+  def image_field_value_for item        
     extension = item.send(@column.name).split('.')[-1]
     if ['jpg','jpeg','gif','png'].include?(extension)   
-      @row_values << row_hash(@column.human_name, item.public_filename(:thumb), :image)
+      val = item.send("#{@column.name.split('_file_name')[0]}").url(:thumb) 
+      @row_values << row_hash(@column.human_name, val, :image)
     elsif extension == 'pdf'  
       @row_values << row_hash(@column.human_name, 'wilderness/icons/pdf.png', :image)
     elsif extension == 'xls'

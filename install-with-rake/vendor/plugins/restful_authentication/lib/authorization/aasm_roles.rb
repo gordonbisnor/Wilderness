@@ -1,7 +1,7 @@
 module Authorization
   module AasmRoles
     unless Object.constants.include? "STATEFUL_ROLES_CONSTANTS_DEFINED"
-      STATEFUL_ROLES_CONSTANTS_DEFINED = 'yup' # sorry for the C idiom
+      STATEFUL_ROLES_CONSTANTS_DEFINED = true # sorry for the C idiom
     end
     
     def self.included( recipient )
@@ -19,10 +19,6 @@ module Authorization
 
         aasm_event :register do
           transitions :from => :passive, :to => :pending, :guard => Proc.new {|u| !(u.crypted_password.blank? && u.password.blank?) }
-        end
-        
-        aasm_event :register_openid do
-          transitions :from => :passive, :to => :active, :guard => Proc.new {|u| !u.not_using_openid? }
         end
         
         aasm_event :activate do
@@ -46,7 +42,6 @@ module Authorization
     end
 
     module StatefulRolesClassMethods
-      
     end # class methods
 
     module StatefulRolesInstanceMethods

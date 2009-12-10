@@ -1,11 +1,7 @@
 class Admin::AssetsController < Admin::AdminController
-
-  def index
-    super { @klass.parents }
-  end
-    
+      
   def gallery        
-    @images = Asset.parents.paginate(:conditions => "content_type LIKE '%%image%%'", :page => params[:page])
+    @images = Asset.paginate(:conditions => "attachment_content_type LIKE '%%image%%'", :page => params[:page])
     respond_to do |format|
       format.html { 
         }

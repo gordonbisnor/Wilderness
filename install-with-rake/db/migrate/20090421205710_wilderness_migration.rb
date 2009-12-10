@@ -26,14 +26,11 @@ class WildernessMigration < ActiveRecord::Migration
     
     # ASSETS
     create_table :assets do |t|
-      t.string :filename 
       t.string :title   
-      t.integer :size
-      t.string :content_type
-      t.integer :height       
-      t.integer :width
-      t.integer  :parent_id
-      t.string :thumbnail
+      t.string :attachment_file_name
+      t.string :attachment_content_type
+      t.integer :attachment_file_size
+      t.datetime :attachment_updated_at
       t.string :assetable_type
       t.integer :assetable_id    
       t.integer :category_id, :default => 1

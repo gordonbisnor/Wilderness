@@ -1,6 +1,5 @@
 <%= header(@klass) %>
 
-
 <table id='<%= @klass.to_s.downcase %>_<%= @item.id %>' class='show'>
 <% unless @item.title.blank? %>
    <tr>
@@ -10,41 +9,36 @@
 <% end %>
 <tr>
 	<td>File</td>
-	<td><%= @item.public_filename %></td>
+	<td><%= @item.attachment.url %></td>
     </tr>
 <tr>
 	<td>Content Type</td>
-	<td><%= @item.content_type %></td>
+	<td><%= @item.attachment_content_type %></td>
 	  </tr> 
 	
 		<tr>
 			<td>File Size</td>
-			<td><%= @item.size %></td>
-	 </tr>
-	<tr>
-			<td>Dimensions</td>
-			<td><%= @item.dimensions %></td>
-		</tr>
-	
+			<td><%= @item.attachment_file_size %></td>
+	 </tr>	
 	<tr>
 		<td>File</td>
 		<td>
-	<% if @item.content_type.split('/')[0] == 'image' %>
-		<%= image_tag(@item.public_filename, :class => 'image') %>
-	<% elsif ['application/octet-stream','video/mp4'].include?(@item.content_type) %>
+	<% if @item.attachment_content_type.split('/')[0] == 'image' %>
+		<%= image_tag(@item.attachment.url, :class => 'image') %>
+	<% elsif ['application/octet-stream','video/mp4'].include?(@item.attachment_content_type) %>
 		<%= video_player(@item) %>
 		<br />Embed Code:                      
 		<textarea rows='10' cols='70'><%=h video_player(@item) %></textarea>
-	<% elsif @item.content_type.split('/')[0] == 'audio' %>
-		<% if @item.content_type.split('/')[1] == 'x-m4a' %>
-			<%= link_to 'Download', @item.public_filename %>
+	<% elsif @item.attachment_content_type.split('/')[0] == 'audio' %>
+		<% if @item.attachment_content_type.split('/')[1] == 'x-m4a' %>
+			<%= link_to 'Download', @item.attachment_url %>
 		<% else %>
 			<%= audio_player(@item) %>
 			<br />Embed Code:                      
 			<textarea rows='10' cols='70'><%=h audio_player(@item) %></textarea>
 		<% end %>
 	<% else %>
-		<%= link_to 'Download', @item.public_filename %>
+		<%= link_to 'Download', @item.attachment_file_name %>
 	<% end %>
         </td>
 </tr>

@@ -8,7 +8,7 @@ class Wilderness
     Wilderness::DRAFTABLE_SECTIONS.include?(Wilderness.human_name_for @klass)
   end
  
-    def field_names
+  def field_names
     @klass.columns.map { |column| add_field_name(column) }
     @field_names << { :name => "Tags", :sort => false } if @klass.public_instance_methods.include?('tags')
     @field_names << { :name => "Comments", :sort => false } if @klass.public_instance_methods.include?('comments')

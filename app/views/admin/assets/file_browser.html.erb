@@ -8,7 +8,7 @@
 	        // Here goes your code for setting your custom things onLoad.
 	    },
 	    mySubmit : function () {
-					var URL = '<%= @asset.public_filename %>'
+					var URL = '<%= @asset.attachment.url %>'
 	        var win = tinyMCEPopup.getWindowArg("window");
 	        // insert information now
 	        win.document.getElementById(tinyMCEPopup.getWindowArg("input")).value = URL;
@@ -31,7 +31,7 @@
 <%= title('File Chooser',:h1) %>
 
 <% form_for(:asset, :url => { :action => "file_browser" },:html=>{:multipart => :true}) 	do |f| %>
-	<%= f.file_field :uploaded_data %>
+	<%= f.file_field :attachment %>
 	<p><%= f.submit 'Save' %></p>
 <% end %>
 </body>
