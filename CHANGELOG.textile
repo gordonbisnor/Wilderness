@@ -1,0 +1,9 @@
+h1. Wilderness CMS Change Log
+
+h2. December 9, 2009
+
+* Switched from attachment_fu to Paperclip
+* Added configuration for Admin panel menu, example:
+	Wilderness::ADMIN_MENU = ['Dashboard','Content','Layout','Users','Preferences'] 
+* Added configuration for admin index pages, example:
+	Asset.omit_fields = ['parent_id','thumbnail','assetable_type','assetable_id','category_id']

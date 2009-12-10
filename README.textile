@@ -15,7 +15,7 @@ h2. Current Features:
 * Comes with Articles, Pages, Categories, Comments (with Rakisment Spam Check if you want), Links, Tags, Assets
 * TinyMCE custom file upload and AJAX paginated file browser. 
 * Flowplayer for video playback (FLV, H.264 or MP4), 1-pixel out Mp3 player
-* Standard gems and plugins: capistrano, will paginate, cucumber, rspec, factory girl, openid, aasm, webrat, acts_as_taggable_on_steroids, attachment_fu, bundle-fu, forgot_password, gravatar-plugin (modified),
+* Standard gems and plugins: capistrano, will paginate, cucumber, rspec, factory girl, openid, aasm, webrat, acts_as_taggable_on_steroids, paperclip, bundle-fu, forgot_password, gravatar-plugin (modified),
 hoptoad_notifier, open_id_authentication, rakismet, restful_authentication, role_requirement, sortable_column_headers, tiny_mce
 * Preference to change text area from TinyMCE to Textile, Markdown, Simple Format or plain output
 
