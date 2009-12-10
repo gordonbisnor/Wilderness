@@ -10,3 +10,4 @@ h2. December 9, 2009
 * Admin pagination CSS bug fix
 * Admin index page: change truncate from 20 to 100 chars
 * Fixed view bug in Admin Dashboard with camelized model names eg RadioShow
+* Added classes to th and td in index view based on downcase underscored field names to allow for CSS text-alignments eg left alignment of title, centering of "published", etc.

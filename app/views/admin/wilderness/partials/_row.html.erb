@@ -4,9 +4,9 @@
 
 		<% row[:fields].each do |field| %>
 			<% if field[:type] == :image %>
-					<td id='<%= "#{@wilderness.controller_name.singularize}_#{field[:name].downcase.gsub(' ','_')}_#{row[:item].id}" %>'><%= image_tag(field[:value])%></td>
+					<td class="<%= field[:name].downcase.underscore %>" id='<%= "#{@wilderness.controller_name.singularize}_#{field[:name].downcase.gsub(' ','_')}_#{row[:item].id}" %>'><%= image_tag(field[:value])%></td>
 			<% else %>
-			<td id='<%= "#{@wilderness.controller_name.singularize}_#{field[:name].downcase.gsub(' ','_')}_#{row[:item].id}" %>'><span id='<%= "#{field[:name].downcase.gsub(' ','_')}_#{row[:item].id}" %>'><%= truncate(strip_tags(field[:value].to_s),:length => field[:name] == 'Title' ? 100 : 20) %></span></td> 
+			<td class="<%= field[:name].downcase.underscore %>" id='<%= "#{@wilderness.controller_name.singularize}_#{field[:name].downcase.gsub(' ','_')}_#{row[:item].id}" %>'><span id='<%= "#{field[:name].downcase.gsub(' ','_')}_#{row[:item].id}" %>'><%= truncate(strip_tags(field[:value].to_s),:length => field[:name] == 'Title' ? 100 : 20) %></span></td> 
 				<% if field[:editable] == true %>
 					<%= in_place_editor "#{field[:name].downcase.gsub(' ','_')}_#{row[:item].id}", :url => "#{controller_name}/set_#{@klass.to_s.downcase}_#{field[:name].downcase}/#{row[:item].id}" %>
 				<% end %>
@@ -14,17 +14,17 @@
 		<% end %>         
 
 		<% if current_user.has_permission?('show') %>
-			<td class='icon'><%= show_link [:admin,row[:item]] %></td>
+			<td class='icon show'><%= show_link [:admin,row[:item]] %></td>
 		<% end %>  
 		<% if current_user.has_permission?('edit') %>
-			<td class='icon'><%= edit_link [:admin,row[:item]] %></td>
+			<td class='icon edit'><%= edit_link [:admin,row[:item]] %></td>
 		<% end %>		
 		<% if current_user.has_permission?('delete') %>
-			<td class='icon'><%= delete_link [:admin,row[:item]]  %></td>
+			<td class='icon remove'><%= delete_link [:admin,row[:item]]  %></td>
 		<% end %>
        
 		<!-- CHECK -->
-		<td class='icon'>
+		<td class='icon check_box'>
 			<input type='checkbox' name="<%= @wilderness.controller_name %>[<%= row[:item].id %>]" id='<%= @wilderness.controller_name %>[<%= row[:item].id %>]' class='<%= @wilderness.controller_name.singularize %>'/>
 		</td>
 	

@@ -13,23 +13,23 @@
 	<tr>     
 		<% @wilderness.field_names.each do |header| -%>
 			<% if header[:sort] -%>
-				<th><%= sort(header[:name]) %></th>
+				<th class="<%= header[:name].downcase.underscore %>"><%= sort(header[:name]) %></th>
 			<% else %>
-				<th><%= header[:name] %></th>
+				<th class="<%= header[:name].downcase.underscore %>"><%= header[:name] %></th>
 			<% end %>
 		<% end if @wilderness %>  
 
 		<% if current_user.has_permission?('show') %>            
-			<th>Show</th>
+			<th class="show">Show</th>
 		<% end %>
 		<% if current_user.has_permission?('edit') %>            
-			<th>Edit</th>
+			<th class="edit">Edit</th>
 		<% end %>
 		<% if current_user.has_permission?('delete') %>            
-			<th>Remove</th>
+			<th class="remove">Remove</th>
 		<% end %>
 		
-		<th><%= toggle_check_boxes(@wilderness.title) %></th>
+		<th class="check_box"><%= toggle_check_boxes(@wilderness.title) %></th>
 	</tr>     
 	            
 	<% @wilderness.records.each do |row| %>
