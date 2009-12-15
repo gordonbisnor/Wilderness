@@ -238,7 +238,7 @@ private
   end  
 
   def image_field_value_for item        
-    extension = item.send(@column.name).split('.')[-1]
+    extension = item.send(@column.name.split('_file_name')[0]).url.split('.')[-1]
     if ['jpg','jpeg','gif','png'].include?(extension)   
       val = item.send("#{@column.name.split('_file_name')[0]}").url(:thumb) 
       @row_values << row_hash(@column.human_name, val, :image)

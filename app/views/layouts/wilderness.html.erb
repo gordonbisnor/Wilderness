@@ -15,15 +15,11 @@
 			<%= stylesheet_link_tag 'wilderness/comments' %> 
 			<%= stylesheet_link_tag 'wilderness/pagination' %> 
 			<%= javascript_include_tag :defaults %>
-			<%= javascript_include_tag "wilderness/jquery-1.3.2.min" %>   
 			<%= javascript_include_tag 'wilderness/flowplayer-3.1.0.min' %>
 			<%= javascript_include_tag 'wilderness/file_browser' %>  
 			<%= javascript_include_tag "wilderness/audio-player.js" %>
 		<% end %>
-		<%= include_tiny_mce_if_needed %>
-	  <script type="text/javascript">
-			  jQuery.noConflict();
-		</script>          		
+		<%= include_tiny_mce_if_needed %>       		
 	</head>
 	<body>             
 		<% @content_areas.each do |area| %>

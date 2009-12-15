@@ -1,5 +1,12 @@
 h1. Wilderness CMS Change Log
 
+h2. December 14, 2009
+
+* Change tag to_param to tag name - no ID
+* Admin search needs to use index omit fields as well (all table view pages) 
+* Make admin show table have borders and right align the TH column, reduce top bottom padding
+* Added uniqueness validation to url slug on page and article. Allow nil and blank
+
 h2. December 9, 2009
 
 * Switched from attachment_fu to Paperclip

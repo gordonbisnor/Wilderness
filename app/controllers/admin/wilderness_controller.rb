@@ -112,7 +112,7 @@ class Admin::WildernessController < ApplicationController
       
   def search
     search_valid? ? get_items_by_search : @items = nil
-    @wilderness = WildernessView.new(@items)
+    @wilderness = WildernessView.new(@items,{:page => :index}) unless @items.blank?
     render :template => "admin/wilderness/pages/index"
   end
   

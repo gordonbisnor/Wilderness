@@ -47,6 +47,8 @@ script/plugin install git://github.com/gordonbisnor/Wilderness.git
 * RUN WILDERNESS RAKE INSTALL TO GET SOME REQUIRED FILES INTO YOUR APP (USE CAUTION TO MAKE SURE IT DOES NOT OVERWRITE ANYTHING IMPORTANT):
 rake wilderness:install
 
+Remove the install-with-rake folder after installation is complete.
+
 * MODIFY YOUR MAIN APPLICATION CONTROLLER INHERITANCE (myapplication/app/controllers/application_controller.rb):
 class ApplicationController < WildernessController
 

@@ -13,9 +13,9 @@
 	<tr>     
 		<% @wilderness.field_names.each do |header| -%>
 			<% if header[:sort] -%>
-				<th class="<%= header[:name].downcase.underscore %>"><%= sort(header[:name]) %></th>
+				<th class="<%= header[:name].downcase.gsub(" ","_") %>"><%= sort(header[:name]) %></th>
 			<% else %>
-				<th class="<%= header[:name].downcase.underscore %>"><%= header[:name] %></th>
+				<th class="<%= header[:name].downcase.gsub(" ","_") %>"><%= header[:name] %></th>
 			<% end %>
 		<% end if @wilderness %>  
 

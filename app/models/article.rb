@@ -12,7 +12,10 @@ class Article < ActiveRecord::Base
 
   @publish_articles_by_default = false
   class << self; attr_accessor :publish_articles_by_default; end
-
+  
+  validates_uniqueness_of :url_slug, :allow_nil => true, :allow_blank => true
+  
+  
   def to_param
     if url_slug.present?
       url_slug

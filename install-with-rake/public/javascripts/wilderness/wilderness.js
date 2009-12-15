@@ -15,25 +15,31 @@ var dom_manip_methods = {
   return eval("element." + attr + ";");
  }
 }
-Element.addMethods(dom_manip_methods);
+// Element.addMethods(dom_manip_methods);
 
 /* TOGGLES CHECKBOXES FOR CONTROL (this) WITH CLASS NAMED IN ARGUMENT */
 Wilderness.toggleCheckBoxes = function(control,class_name) {
-  $$(class_name).invoke('setDOMAttribute','checked',$(control).checked);
+  var state = jQuery(control).attr("checked");
+	jQuery(class_name).attr("checked",state);
 }
 
 /* ACT ON CHECKED ITEMS */
 Wilderness.act_on_checked = function(items,path) {       
-	var action = $('act-on-checked').value;
-  var collection = $$("."+items).pluck('id');
-	var ids = new Array;
-	collection.each(function(item) { 
-		id = item.split('[')[1].split(']')[0];
-		value = $(item).getValue(); 
-		if(value == 'on') { ids.push(id); }
+	var action = jQuery('#act-on-checked').val();
+  var collection = jQuery("."+items);
+	var ids = new Array();
+	
+	jQuery.each(collection, function() { 
+		id = jQuery(this).attr("id").split('[')[1].split(']')[0];
+		value = jQuery(this).val(); 
+		if(value == 'on') { 
+			ids.push(id); 
+			}
 		});
+		
 	if (action != '') {
-  	new Ajax.Request(path + action +"?ids="+ids);
+		url = path + action +"?ids="+ids
+		jQuery.ajax({type: 'POST',dataType: 'script',url: url});
 	} else {
 		alert('Please select an action...');
 	}

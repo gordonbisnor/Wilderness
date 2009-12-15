@@ -94,6 +94,9 @@ table.index td input, table.index  td label, table.index  td textarea, table.ind
 	margin-right: 5px!important;
 	padding:0!important;
 }
+.id, .published, .duration, .created_at, .updated_at, .comments, .position, .publish {
+	text-align: center;
+}
 /* LISTS */
 dt {
 	font-weight: bold;
@@ -330,9 +333,11 @@ div#container {
 }
 /* SHOW PAGE */	
 table.show td, table.show th {
- 	border: 0 solid #DDD;
+ 	border: 1px solid #DDD;
 	border-bottom-width: 1px; 
 	padding: 10px;
+	padding-top: 5px;
+	padding-bottom: 5px;
 }
 table.show tr.odd td, table.show tr.odd th {
 	background-color:#EEE;
@@ -350,8 +355,8 @@ table.show .image {
 table.show th {        
 	font-weight: bold;
 	background-color: #F9F9F9;
-	padding-right: 30px;    
-	text-align: left;
+	padding-right: 10px;    
+	text-align: right;
 }
 /* DASHBOARD PAGE */
 div#dashboard {
@@ -415,3 +420,4 @@ table#preferences td {
   padding-right: 30px; 
 	text-align: left;
 }
+

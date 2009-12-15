@@ -31,7 +31,7 @@ alias responds_to? respond_to?
 Tag.class_eval do 
   
   def to_param
-      "#{id}-#{name.gsub(/[^a-z0-9]+/i, '-')}"
+      "#{name.gsub(/[^a-z0-9]+/i, '-')}"
     end
 
     def self.search_fields

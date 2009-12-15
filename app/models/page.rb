@@ -9,6 +9,8 @@ class Page < ActiveRecord::Base
   fires :update, :on => :update, :actor => :user
   fires :destroy, :on => :destroy, :actor => :user
   
+  validates_uniqueness_of :url_slug, :allow_nil => true, :allow_blank => true
+  
   def to_param
     if url_slug.present?
       url_slug

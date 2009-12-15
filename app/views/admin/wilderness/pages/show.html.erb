@@ -3,8 +3,8 @@
 <table id='page_<%= @item.id %>' class='show'>
 	
 	<% @wilderness.records[:fields].each do |field| %>
-	<tr class='<%= zebra %>'>
-		<th><%= field[:name].titlecase %></th>
+  	<tr class='<%= zebra %>'>
+	  	<th><%= field[:name].titlecase %></th>
 			<% if field[:type] == :image %>
 				<td><%= image_tag(field[:value],:class=>'image') %></td>
 			<% elsif field[:type] == :has_many_link %>	
@@ -15,7 +15,8 @@
 				<td><%= formatted_text(field[:value]) %></td>
 			<% else %>
 				<td><%= field[:value] %></td>
-			<% end %>                  
+			<% end %>       
+		</tr>           
 	<% end unless @wilderness.records.nil? %>
 
 	<% if current_user.has_permission?('edit') %> 
