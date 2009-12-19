@@ -58,6 +58,7 @@ config.gem "rspec-rails", :lib => false, :version => '>=1.2.2'
 config.gem "webrat", :lib => false, :version => '>=0.4.3'
 config.gem "cucumber", :lib => false, :version => '>=0.3.2'
 config.gem "thoughtbot-factory_girl", :lib => "factory_girl", :source => "http://gems.github.com"
+config.gem 'vestal_versions'
 
 * ADD ANY OF THESE REQUIRED GEM DEPENDENCIES TO CONFIG/ENVIRONMENT.RB:
 config.gem "capistrano-ext", :lib => "capistrano"

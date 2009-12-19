@@ -33,15 +33,23 @@
 			<td><%= link_to image_tag('wilderness/icons/delete.png'), [:admin,@item], :method => :delete, :confirm => 'Are you sure' %></td>                              
 	    </tr>  
   <% end %>
-		<% if current_user.has_permission?('publish') && @klass.columns.map(&:name).include?('publish') %>
-<tr>
-			<th>Publish</th>
+	<% if @item.responds_to?("versions") && current_user.has_permission?('revert') -%>
+		<tr>
+			<th>Revert</th>
+			<td>
+				<%= link_to image_tag('wilderness/icons/arrow_undo.png'), "/admin/#{controller_name}/#{@item.id}/revert_to_previous" %>
+			</td>                              
+    </tr>  
+  <% end -%>
+	<% if current_user.has_permission?('publish') && @klass.columns.map(&:name).include?('publish') %>
+	 <tr>
+		<th>Publish</th>
 		<td>
 			<% form_for([:admin,@item]) do |f| %>
 				<%= f.check_box :publish, :style => 'float: left; margin:0; margin-right: 10px;' %>
 				<%= f.submit 'Go', :style=>'margin:0;' %>
 			<% end %>
 		</td>
-  </tr>
-		<% end %>
+   </tr>
+	<% end %>
 	</table>

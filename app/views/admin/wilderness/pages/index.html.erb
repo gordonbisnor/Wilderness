@@ -13,7 +13,7 @@
 		<% end %>                                
 		<% if @klass.respond_to?("search_fields") && !@klass.search_fields.blank? %>
 		<td style='vertical-align:bottom!important'>
-			<%= search_form(:path => "/admin/#{controller_name}/search/",  :options => @klass.search_fields) %>
+			<%= search_form(:path => "/admin/#{controller_name}/search/",  :options => @klass.search_fields.map{|field| [field.humanize.titlecase,field] } ) %>
 		</td>                                     
 		<% end %>
 	</tr>    

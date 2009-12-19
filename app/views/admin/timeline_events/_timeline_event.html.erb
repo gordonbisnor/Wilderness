@@ -1,13 +1,13 @@
 <li>
 	<% if timeline_event.actor %>
   	<%= gravatar_for timeline_event.actor.email %>
-	<% elsif timeline_event.subject %>
+	<% elsif timeline_event.subject && timeline_event.subject.responds_to?('author_email') %>
 		<%= gravatar_for timeline_event.subject.author_email %>
 	<% end %>                                   
 	
 	<% if timeline_event.actor %>
 		<%= link_to timeline_event.actor.login, timeline_event.actor %> 
-	<% elsif timeline_event.subject.author %>
+	<% elsif timeline_event.subject && timeline_event.subject.responds_to?('author_email') %>
 		<%= link_to timeline_event.subject.author %>
 	<% end %>
 	

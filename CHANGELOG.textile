@@ -1,5 +1,13 @@
 h1. Wilderness CMS Change Log
 
+h2. December 19, 2009
+
+* Added versioning to Page and Article - along with ability to revert to previous version through Wilderness generated admin show pages
+
+h2. December 18, 2009
+
+* CSS submit button styling
+
 h2. December 14, 2009
 
 * Change tag to_param to tag name - no ID

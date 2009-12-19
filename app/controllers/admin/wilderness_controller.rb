@@ -7,7 +7,7 @@ class Admin::WildernessController < ApplicationController
   
   before_filter :must_be_logged_in , :except => [:widget_create,:widget_index]
   before_filter :must_have_permission
-  before_filter :get_item, :only => [:destroy,:show,:edit,:update]
+  before_filter :get_item, :only => [:destroy,:show,:edit,:update,:revert_to_previous]
   before_filter :get_group_action_ids, :only => [:delete_checked,:mark_as_ham,:mark_as_spam,:publish,:unpublish,:open_for_comments,:close_for_comments,:disable_comments]
   before_filter :setup_in_place_editing, :except => [:dashboard]
 
@@ -98,6 +98,14 @@ class Admin::WildernessController < ApplicationController
       @wilderness = WildernessForm.new(@item)                                    
       render :template => "admin/wilderness/pages/new"
     end
+  end
+
+  def revert_to_previous
+    if @item.version.present? && @item.version > 1
+      @item.revert_to(@item.version - 1)
+      @item.save
+    end
+    redirect_to [:admin,@item]
   end
 
   def update 

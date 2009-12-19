@@ -167,6 +167,7 @@ class WildernessMigration < ActiveRecord::Migration
     Permission.create (:title => 'open_for_comments')
     Permission.create (:title => 'close_for_comments')
     Permission.create (:title => 'disable_comments')
+    Permission.create (:title => 'revert')
 
     # ROLES PERMISSIONS
     create_table :roles_permissions do |t|

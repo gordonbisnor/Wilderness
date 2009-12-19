@@ -139,6 +139,8 @@ ul.sortable-list li:hover {
 	cursor: move;
 }            
 /* FORMS */
+.admin_edit_page_actions td {border-width:0}
+
 label, input, textarea {
 	display: block;
 }   
@@ -160,6 +162,15 @@ input[type='submit'], input[type='image']{
 	margin-top: 20px;
 	margin-bottom: 20px;
 } 
+input[type='submit'] {
+padding: 10px;
+background-color: #6394CF;
+color: white;
+-moz-border-radius: 5px!important;
+-webkit-border-radius: 5px!important;
+border-radius: 5px!important;
+border-width: 0;
+}
 div.checkbox-group input[type='checkbox'], div.checkbox-group label {
 		padding: 0;
 		margin: 0;	

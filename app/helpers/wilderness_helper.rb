@@ -319,6 +319,7 @@ module WildernessHelper
     table += "</table>"
   end
   
+  
   # Builds a “show” page icon image link, for the supplied path, using the  magnifier.png icon
   def show_link path
     link_to image_tag('wilderness/icons/magnifier.png'), path, :title => 'Show' 

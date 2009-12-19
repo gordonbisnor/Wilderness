@@ -23,8 +23,8 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :roles_permissions
     admin.resources :users
     admin.resources :roles
-    admin.resources :pages
-    admin.resources :articles 
+    admin.resources :pages, :member => "revert_to_previous"
+    admin.resources :articles, :member => "revert_to_previous"
     admin.resources :comments 
     admin.resources :links     
     admin.resources :categories    

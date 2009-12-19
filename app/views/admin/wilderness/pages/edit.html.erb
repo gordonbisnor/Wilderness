@@ -1,4 +1,18 @@
 <%= header(@klass) %>
+
+<table class="admin_edit_page_actions">
+	<tr>
+		<td>
+			<%= show_link [:admin,@item] %>
+		</td>
+		<td style="width:50px"><%= link_to "Show", [:admin,@item] %></td>
+		<td>
+			<%= delete_link [:admin, @item] %>
+		</td>
+		<td><%= link_to "Delete", [:admin,@item], :method => :delete, :confirm => "Are you sure?" %></td>
+	</tr>
+</table>
+
 <% unless @klass.responds_to?("custom_views") and !@klass.custom_views.blank? and @klass.custom_views.include?('edit') %>         
 	<%= render :partial => 'admin/wilderness/partials/form' %>
 <% else %>

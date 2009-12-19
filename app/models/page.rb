@@ -1,4 +1,5 @@
 class Page < ActiveRecord::Base
+  versioned
   belongs_to :category
   belongs_to :user
   named_scope :published, :conditions => { :publish => true }
@@ -10,6 +11,14 @@ class Page < ActiveRecord::Base
   fires :destroy, :on => :destroy, :actor => :user
   
   validates_uniqueness_of :url_slug, :allow_nil => true, :allow_blank => true
+  
+  def author_email
+    user.email
+  end
+  
+  def author
+    user
+  end
   
   def to_param
     if url_slug.present?

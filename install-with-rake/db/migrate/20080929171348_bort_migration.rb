@@ -76,6 +76,21 @@ class BortMigration < ActiveRecord::Migration
     
     # Add admin role to admin user
     user.roles << admin_role
+        
+    create_table :versions do |t|
+      t.belongs_to :versioned, :polymorphic => true
+      t.text :changes
+      t.integer :number
+      t.datetime :created_at
+    end
+
+    change_table :versions do |t|
+      t.index [:versioned_type, :versioned_id]
+      t.index :number
+      t.index :created_at
+    end
+
+    
   end
 
   def self.down
@@ -87,5 +102,6 @@ class BortMigration < ActiveRecord::Migration
     drop_table :roles_users
     drop_table :open_id_authentication_associations
     drop_table :open_id_authentication_nonces
+    drop_table :versions
   end
 end
