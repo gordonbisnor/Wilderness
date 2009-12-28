@@ -31,7 +31,7 @@ class Page < ActiveRecord::Base
   end
 
   class << self
-    attr_accessor :omit_fields, :search_fields, :filter_options, :association_fields, :custom_views, :omit_relationships 
+    attr_accessor :omit_fields, :search_fields, :filter_options, :association_fields, :custom_views, :omit_relationships, :show_category_filter
   end
 
 end

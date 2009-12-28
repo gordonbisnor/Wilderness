@@ -230,7 +230,22 @@ module WildernessHelper
   # ARGUMENT IS THE ALIAS NAME 
   def sort item
     klass = controller_name
-    link_to item.titlecase, sort_param(klass, :field => item.downcase.gsub(' ','_'))
+    name = item.downcase.gsub(' ','_').to_sym
+    match = name.to_s
+    matchers = {}
+
+    session[:sortable_column_headers][klass].each_with_index { |m,i| 
+      matchers[m.split('.')[1].split(' ')[0].to_sym] = m.split('.')[1].split(' ')[1] if i == 0
+    } if session[:sortable_column_headers].present?
+    arrow = matchers[match.to_sym] == "DESC" ? "down" : "up"
+   
+    if matchers.present? && matchers.has_key?(match.to_sym)
+      css = "sorted  #{arrow}"
+    else
+      css = ""
+    end  
+
+    link_to item.titlecase, sort_param(klass, name), :class => css
   end
   
   # HELPER THAT WORKS IN TANDEM WITH APPLICATION CONTROLLER FILTERED?
@@ -239,7 +254,8 @@ module WildernessHelper
     options = args[:options].map { |option| 
         [option,"#{args[:model]}-#{args[:field]}-#{option.downcase}"]
      }
-    options = options_for_select(options,session[:filter_by])
+     
+    options = options_for_select([["All","#{args[:model]}-#{args[:field]}-all"]] + options,session[:filter_by])
     "View By #{args[:model].singularize.titlecase}: “#{args[:field].titlecase}” <select onchange='return Wilderness.filter(this,\"#{path}\");'>#{options}</select>"
   end
   

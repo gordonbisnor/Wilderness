@@ -1,5 +1,13 @@
 h1. Wilderness CMS Change Log
 
+h2. December 27, 2009
+
+* Added a secondary category filter option for admin index pages, and made the filters work a little better with a default "All" option that kills those session variables and means that by default you are not seeing something that is not accurate
+
+h2. December 26, 2009 
+ 
+* Made sortable column headers show up and down arrows in view
+
 h2. December 19, 2009
 
 * Added versioning to Page and Article - along with ability to revert to previous version through Wilderness generated admin show pages

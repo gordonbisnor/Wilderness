@@ -10,7 +10,20 @@
 		<td>
 			<%= filter_by(:options => @klass.filter_options[:values], :model =>controller_name, :field => @klass.filter_options[:field]) %>
 		</td>                                  
-		<% end %>                                
+		<% end %>                              
+		
+	 <% if @klass.respond_to?("show_category_filter") && @klass.show_category_filter == true -%>	               
+		<td>
+		  View By Category: 
+			<select onchange="window.location.href='/admin/<%= controller_name %>?category_id='+this.value">
+				<option value="All">All</option>
+				<% Category.all.each do |c| -%>
+					<option value="<%= c.id %>" <%= "selected='selected'" if (params[:category_id].present? && params[:category_id].to_i == c.id) || (session[:category_id].present? && session[:category_id].to_i == c.id) %>><%= c.title %></option>
+				<% end -%>
+			</select>
+		</td>
+	 <% end -%>
+		  
 		<% if @klass.respond_to?("search_fields") && !@klass.search_fields.blank? %>
 		<td style='vertical-align:bottom!important'>
 			<%= search_form(:path => "/admin/#{controller_name}/search/",  :options => @klass.search_fields.map{|field| [field.humanize.titlecase,field] } ) %>

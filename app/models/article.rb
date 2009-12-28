@@ -35,7 +35,7 @@ class Article < ActiveRecord::Base
   end
 
   class << self
-    attr_accessor :omit_fields, :search_fields, :filter_options, :association_fields, :custom_views; 
+    attr_accessor :omit_fields, :search_fields, :filter_options, :association_fields, :custom_views,  :show_category_filter; 
   end
                                                      
   # NEED TO INCORPORATE ASSOCIATION TYPE SO AN ARRAY OF ASSOCIATIONS, THE ASSOCIATION IS A HASH?                          

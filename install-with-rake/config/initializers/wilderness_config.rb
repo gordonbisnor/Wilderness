@@ -17,6 +17,7 @@ Article.association_fields = {}
 Article.custom_views = []
 Article.filter_options = { :field => 'publish', :values => ['Yes','No'] }
 Article.search_fields = ['Title']
+Article.show_category_filter = true
 
 Asset.association_fields = {} 
 Asset.custom_views = []
@@ -59,6 +60,7 @@ Page.custom_views = []
 Page.filter_options = { :field => 'publish', :values => ['Yes','No'] }
 Page.omit_fields = ['user_id']
 Page.search_fields = ['title']
+Page.show_category_filter = true
 
 Permission.association_fields = {}
 Permission.custom_views = []

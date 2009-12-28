@@ -38,7 +38,8 @@ class Admin::WildernessController < ApplicationController
   def index 
     add_to_sortables 
     conditions = { :page => params[:page], :order => sortable_order("#{controller_name}") }
-    @conditions = filtered? conditions
+    conditions = filtered? conditions
+    conditions = category? conditions
     if block_given? 
       @items = yield.paginate conditions
     else
@@ -234,11 +235,25 @@ class Admin::WildernessController < ApplicationController
       end 
     end
     
+    def category? conditions
+      if session[:category_id] || params[:category_id]
+        category_id = session[:category_id] =  params[:category_id] || session[:category_id]
+      end    
+      if category_id == "All"                   
+        category_id = session[:category_id] =  nil
+      elsif category_id.present?
+        conditions.merge!({:conditions => "category_id = #{category_id.to_i}"}) 
+      end
+      return conditions
+    end
+    
     def filtered? conditions
         if session[:filter_by] || params[:filter_by]
           filter_by = session[:filter_by] =  params[:filter_by] || session[:filter_by]
-         end                       
-         unless filter_by.nil?
+         end     
+         if filter_by.present? && filter_by.split('-')[2] == "all"
+           filter_by = session[:filter_by] = nil
+         elsif filter_by.present?
            filter_by = filter_by.split('-')
            klass = filter_by[0]
            field = filter_by[1]

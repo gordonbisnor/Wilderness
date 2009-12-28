@@ -46,8 +46,7 @@
 		<th>Publish</th>
 		<td>
 			<% form_for([:admin,@item]) do |f| %>
-				<%= f.check_box :publish, :style => 'float: left; margin:0; margin-right: 10px;' %>
-				<%= f.submit 'Go', :style=>'margin:0;' %>
+				<%= f.check_box :publish, :style => 'float: left; margin:0; margin-right: 10px;', :onclick=>"this.form.submit();" %>
 			<% end %>
 		</td>
    </tr>

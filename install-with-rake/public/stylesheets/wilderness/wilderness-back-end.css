@@ -97,6 +97,19 @@ table.index td input, table.index  td label, table.index  td textarea, table.ind
 .id, .published, .duration, .created_at, .updated_at, .comments, .position, .publish {
 	text-align: center;
 }
+/* SORTABLE COLUMN HEADERS */
+.sorted {
+	text-decoration: none;	
+	padding-left: 10px;
+	background-repeat: no-repeat;
+	}
+.down {
+	background-image: url('/images/wilderness/down.png');
+}
+.up {
+	background-image: url('/images/wilderness/up.png');	
+}
+
 /* LISTS */
 dt {
 	font-weight: bold;
@@ -431,4 +444,3 @@ table#preferences td {
   padding-right: 30px; 
 	text-align: left;
 }
-
